@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UK Parcel Size Checker | Free Parcel Dimension Guide</title>
+  <meta name="description" content="Check your parcel dimensions and weight to estimate whether it may be a small, medium, or large parcel before posting.">
+  <!-- Update this relative canonical URL when the final custom domain is connected. -->
+  <link rel="canonical" href="./">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="SellSmart Tools UK home"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle>Menu</button>
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation" data-site-nav>
+        <ul class="nav-list">
+          <li><a href="../">Home</a></li>
+          <li><a href="../ebay-profit-calculator-uk/">Profit Calculator</a></li>
+          <li><a href="../ebay-title-checker/">Title Builder</a></li>
+          <li><a href="../uk-parcel-size-checker/" aria-current="page">Parcel Size Checker</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Royal Mail and Evri guide</p>
+        <h1>UK Parcel Size Checker</h1>
+        <p class="lead">Enter the finished parcel dimensions and weight to check Royal Mail size bands, Evri eligibility, and current estimated UK postage.</p>
+        <div class="notice">
+          <p><strong>Prices are estimates, not checkout quotes.</strong> Public Royal Mail and Evri prices were checked on 9 June 2026. Always confirm the final price and restrictions with the carrier before posting.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="checker-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="checker-heading">Check your packed parcel</h2>
+          <p>Measure the item after adding its box, mailer, padding, tape, and label.</p>
+        </div>
+        <div class="tool-layout">
+          <form class="tool-form" id="parcel-checker-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="parcel-length">Length (cm)</label>
+                <input id="parcel-length" name="length" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 30">
+              </div>
+              <div class="form-field">
+                <label for="parcel-width">Width (cm)</label>
+                <input id="parcel-width" name="width" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 20">
+              </div>
+              <div class="form-field">
+                <label for="parcel-height">Height (cm)</label>
+                <input id="parcel-height" name="height" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 8">
+              </div>
+              <div class="form-field">
+                <label for="parcel-weight">Weight (kg)</label>
+                <input id="parcel-weight" name="weight" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 1.25">
+                <p class="field-hint">Use kilograms: 500g = 0.5kg.</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="button" type="submit">Check parcel size</button>
+              <button class="button button-muted" type="reset">Reset</button>
+            </div>
+          </form>
+          <aside class="result-panel" id="parcel-results" aria-live="polite" aria-atomic="true">
+            <div class="result-placeholder"><p>Enter the packed size and weight, then select <strong>Check parcel size</strong>.</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future AdSense or courier affiliate placement could sit here. -->
+
+    <section class="section section-alt" aria-labelledby="how-heading">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-heading">Dimensions are checked in size order</h2>
+          <p>The tool sorts your three dimensions from largest to smallest before comparing them with Royal Mail's Letter, Large Letter, Small Parcel, and Medium Parcel limits.</p>
+          <p>Weight matters as well as size. A compact but heavy parcel may move into a different service or exceed a courier limit.</p>
+        </div>
+        <div class="card">
+          <h3>Royal Mail maximum formats</h3>
+          <ul class="plain-list">
+            <li>Letter: 24 × 16.5 × 0.5cm, up to 100g</li>
+            <li>Large Letter: 35.3 × 25 × 2.5cm, up to 750g, or 1kg with Tracked 24/48</li>
+            <li>Small Parcel: 45 × 35 × 16cm, up to 2kg</li>
+            <li>Medium Parcel: 61 × 46 × 46cm, up to 20kg</li>
+          </ul>
+          <p>Evri is checked separately because it uses weight bands and a length-plus-girth rule.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tips-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Packing tips</p><h2 id="tips-heading">Measure what you will actually send</h2></div>
+        <div class="card-grid">
+          <article class="card"><h3>Pack first</h3><p>Measure after packaging, not before. Padding and boxes can change the size category.</p></article>
+          <article class="card"><h3>Round up</h3><p>Round dimensions and weight up rather than down when buying postage to allow for small measuring differences.</p></article>
+          <article class="card"><h3>Check the courier</h3><p>Confirm current maximum dimensions, weight, restricted items, compensation, and prices on the courier's own website.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Common questions</p><h2 id="faq-heading">UK parcel size FAQ</h2></div>
+        <div class="faq-list">
+          <details><summary>Should I measure before or after packaging?</summary><p>Measure after packaging. The courier handles the final parcel, so include the box or mailer, padding, tape, and any outer protection.</p></details>
+          <details><summary>Does this show exact postage prices?</summary><p>No. It shows current public estimates checked on 9 June 2026. Royal Mail publishes starting prices for several formats, while Evri prices can also vary by delivery option, extras, and location.</p></details>
+          <details><summary>Why does weight matter?</summary><p>Couriers normally apply both size and weight limits. A parcel can fit the dimensions but still be too heavy for a particular category or service.</p></details>
+          <details><summary>Which courier should I use?</summary><p>Compare the current price, parcel limits, delivery speed, drop-off options, tracking, compensation, and restricted-item rules for your specific order.</p></details>
+        </div>
+        <p class="source-note">Official sources: <a href="https://www.royalmail.com/sending/uk" target="_blank" rel="noopener">Royal Mail UK services and prices</a>, <a href="https://www.royalmail.com/prices2026" target="_blank" rel="noopener">Royal Mail 2026 price guides</a>, <a href="https://www.evri.com/send/parcel-size-and-weight-guide" target="_blank" rel="noopener">Evri size and weight guide</a>, and <a href="https://www.evri.com/our-services/our-prices" target="_blank" rel="noopener">Evri prices</a>.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="related-heading">
+      <div class="container">
+        <div class="section-heading"><h2 id="related-heading">Related seller tools</h2></div>
+        <div class="related-links">
+          <a href="../ebay-profit-calculator-uk/">Add postage costs to the eBay UK Profit Calculator</a>
+          <a href="../ebay-title-checker/">Build and improve a listing title</a>
+          <a href="../about/">Learn more about SellSmart Tools UK</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a><p>Free, practical tools for UK online sellers.</p></div>
+        <nav aria-label="Footer navigation"><ul class="footer-links"><li><a href="../about/">About</a></li><li><a href="../privacy-policy/">Privacy Policy</a></li><li><a href="../contact/">Contact</a></li></ul></nav>
+      </div>
+      <div class="footer-bottom"><p>Tools provide estimates only. Always check current marketplace and courier rules before making business decisions.</p><p>&copy; <span data-current-year></span> SellSmart Tools UK.</p><p class="footer-credit">Designed and developed by <a href="https://nomanmalik.co.uk/">Noman Ali Malik</a></p></div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/parcel-checker.js?v=20260609-2"></script>
+</body>
+</html>

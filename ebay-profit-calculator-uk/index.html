@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eBay Profit Calculator UK | Free Seller Fee &amp; Margin Tool</title>
+  <meta name="description" content="Estimate your eBay selling profit, margin, break-even price, and promoted listing impact with this free UK seller profit calculator.">
+  <!-- Update this relative canonical URL when the final custom domain is connected. -->
+  <link rel="canonical" href="./">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="SellSmart Tools UK home"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle>Menu</button>
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation" data-site-nav>
+        <ul class="nav-list">
+          <li><a href="../">Home</a></li>
+          <li><a href="../ebay-profit-calculator-uk/" aria-current="page">Profit Calculator</a></li>
+          <li><a href="../ebay-title-checker/">Title Builder</a></li>
+          <li><a href="../uk-parcel-size-checker/">Parcel Size Checker</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Free UK seller tool</p>
+        <h1>eBay Profit Calculator UK</h1>
+        <p class="lead">Estimate the money left after item costs, postage, packaging, selling fees, promoted listing fees, and other expenses.</p>
+        <div class="notice">
+          <p><strong>This is not an official eBay calculator.</strong> It estimates UK business seller fees using the category you select, the published per-order fee, and the 0.35% regulatory operating fee. Always check your actual eBay transaction fees.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="calculator-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="calculator-heading">Calculate your estimated profit</h2>
+          <p>Enter the figures for one sale. Results update automatically, and blank fields are treated as zero.</p>
+        </div>
+        <div class="tool-layout">
+          <form class="tool-form" id="profit-calculator-form">
+            <div class="tool-form-heading">
+              <div>
+                <p class="tool-kicker">Sale details</p>
+                <h3>Enter your numbers</h3>
+              </div>
+              <span class="live-badge"><span aria-hidden="true"></span> Updates live</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-field form-field-full">
+                <label for="ebay-category">eBay business seller category</label>
+                <select id="ebay-category" name="ebayCategory">
+                  <option value="">Choose the closest category</option>
+                  <optgroup label="General categories">
+                    <option value="antiques">Antiques — 10.9%</option>
+                    <option value="art">Art — 10.9%</option>
+                    <option value="baby">Baby — 10.9%</option>
+                    <option value="books">Books, Comics &amp; Magazines — 9.9%</option>
+                    <option value="business">Business, Office &amp; Industrial — 12.5%</option>
+                    <option value="cameras">Cameras &amp; Photography — 9.9%</option>
+                    <option value="clothes">Clothes, Shoes &amp; Accessories — 11.9%</option>
+                    <option value="coins">Coins — tiered from 10.9%</option>
+                    <option value="collectables">Collectables — 10.9%</option>
+                    <option value="computers">Computers, Tablets &amp; Networking — 9.9%</option>
+                    <option value="crafts">Crafts — 12.9%</option>
+                    <option value="dolls">Dolls &amp; Bears — 10.9%</option>
+                    <option value="event-tickets">Event Tickets — 12.9%</option>
+                    <option value="films">Films &amp; TV — 9.9%</option>
+                    <option value="garden">Garden &amp; Patio — 10.9%</option>
+                    <option value="health">Health &amp; Beauty — 10.9%</option>
+                    <option value="holidays">Holidays &amp; Travel — tiered from 7.9%</option>
+                    <option value="home">Home, Furniture &amp; DIY — tiered from 11.9%</option>
+                    <option value="jewellery">Jewellery &amp; Watches — tiered from 14.9%</option>
+                    <option value="mobile">Mobile Phones &amp; Communication — 9.9%</option>
+                    <option value="music">Music — 9.9%</option>
+                    <option value="musical-instruments">Musical Instruments &amp; DJ Equipment — 10.9%</option>
+                    <option value="pet-supplies">Pet Supplies — 12.9%</option>
+                    <option value="pottery">Pottery, Ceramics &amp; Glass — 10.9%</option>
+                    <option value="sound-vision">Sound &amp; Vision — 9.9%</option>
+                    <option value="sporting-goods">Sporting Goods — 10.9%</option>
+                    <option value="sports-memorabilia">Sports Memorabilia — 10.9%</option>
+                    <option value="stamps">Stamps — 10.9%</option>
+                    <option value="toys-games">Toys &amp; Games — 10.9%</option>
+                    <option value="vehicle-parts">Vehicle Parts &amp; Accessories — tiered from 9.5%</option>
+                    <option value="video-games">Video Games &amp; Consoles — 9.9%</option>
+                    <option value="wholesale">Wholesale &amp; Job Lots — 12.9%</option>
+                    <option value="everything-else">Everything Else — 12.9%</option>
+                  </optgroup>
+                  <optgroup label="Published subcategory exceptions">
+                    <option value="nfts">Eligible NFT subcategories — 5%</option>
+                    <option value="camera-equipment">Cameras, lenses and photography equipment — tiered from 6.9%</option>
+                    <option value="handbags">Women's Bags &amp; Handbags — tiered from 12.9%</option>
+                    <option value="trainers">Eligible men's or women's trainers — 11.9% / 7%</option>
+                    <option value="collectables-reduced">Eligible Collectables with reduced order fee — 10.9%</option>
+                    <option value="computer-equipment">Selected computer equipment — tiered from 6.9%</option>
+                    <option value="hair-extensions">Hair Extensions &amp; Wigs — 11.9%</option>
+                    <option value="electronic-smoking">Electronic Smoking, Parts &amp; Accessories — 12.9%</option>
+                    <option value="home-appliances-tools">Home appliances and DIY tools — tiered from 6.9%</option>
+                    <option value="power-strips">Power Strips &amp; Surge Protectors — tiered from 9.9%</option>
+                    <option value="furniture-bath-plumbing">Furniture, Bath and selected Plumbing — tiered from 10.9%</option>
+                    <option value="watches">Watches, Parts &amp; Accessories — tiered from 12.9%</option>
+                    <option value="smartphones">Mobile &amp; Smart Phones — tiered from 6.9%</option>
+                    <option value="sound-equipment">Selected Sound &amp; Vision equipment — tiered from 6.9%</option>
+                    <option value="tents">Tents — tiered from 10.9%</option>
+                    <option value="vehicle-exceptions">Tyres, GPS and selected vehicle power tools — tiered from 6.9%</option>
+                    <option value="consoles">Video Game Consoles — tiered from 6.9%</option>
+                    <option value="memorials">Memorials &amp; Funerals — 11.9%</option>
+                  </optgroup>
+                </select>
+                <p class="field-hint">Choose the exact exception when it applies. If an item is listed in two categories, eBay may charge the higher rate.</p>
+              </div>
+              <div class="form-field">
+                <label for="selling-price">Selling price (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="selling-price" name="sellingPrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
+                </div>
+                <p class="field-hint">The item price before buyer postage.</p>
+              </div>
+              <div class="form-field">
+                <label for="product-cost">Product/item cost (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="product-cost" name="productCost" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
+                </div>
+                <p class="field-hint">What you paid for the item.</p>
+              </div>
+              <div class="form-field">
+                <label for="postage-charged">Postage charged to buyer (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="postage-charged" name="postageCharged" type="number" min="0" step="0.01" inputmode="decimal" value="0">
+                </div>
+                <p class="field-hint">Use 0 if postage is included in the selling price.</p>
+              </div>
+              <div class="form-field">
+                <label for="actual-postage">Actual postage cost (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="actual-postage" name="actualPostage" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
+                </div>
+                <p class="field-hint">What the delivery service will charge you.</p>
+              </div>
+              <div class="form-field">
+                <label for="packaging-cost">Packaging cost (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="packaging-cost" name="packagingCost" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
+                </div>
+                <p class="field-hint">Box, mailer, tape, label, and padding.</p>
+              </div>
+              <div class="form-field">
+                <label for="other-costs">Other/listing costs (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="other-costs" name="otherCosts" type="number" min="0" step="0.01" inputmode="decimal" value="0">
+                </div>
+                <p class="field-hint">Insertion fees, listing upgrades, or another sale cost.</p>
+              </div>
+              <div class="form-field">
+                <label for="promoted-percentage">Promoted listing rate (%)</label>
+                <div class="input-wrap input-wrap-suffix">
+                  <input id="promoted-percentage" name="promotedPercentage" type="number" min="0" max="99.99" step="0.01" inputmode="decimal" value="0">
+                  <span class="input-suffix" aria-hidden="true">%</span>
+                </div>
+                <p class="field-hint">Enter the ad rate shown for this listing, or use 0.</p>
+              </div>
+              <div class="form-field">
+                <label for="target-profit">Target profit (£)</label>
+                <div class="input-wrap">
+                  <span class="input-prefix" aria-hidden="true">£</span>
+                  <input id="target-profit" name="targetProfit" type="number" min="0" step="0.01" inputmode="decimal" value="5">
+                </div>
+                <p class="field-hint">Used to estimate a recommended selling price.</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="button button-muted" type="reset">Reset</button>
+            </div>
+          </form>
+
+          <aside class="result-panel" id="profit-results" aria-live="polite" aria-atomic="true">
+            <div class="result-placeholder">
+              <span class="result-placeholder-icon" aria-hidden="true">£</span>
+              <p>Choose a category and enter a selling price or buyer postage amount to see a live estimate.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future AdSense or relevant affiliate placement could sit here. -->
+
+    <section class="section section-alt" aria-labelledby="how-heading">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-heading">A clear estimate from your own figures</h2>
+          <p>The calculator adds the selling price and buyer postage to get total revenue. It applies the selected category's final value percentage, a £0.30 order fee for orders of £10 or less or £0.40 above £10, and the 0.35% regulatory operating fee.</p>
+          <p>Published tiered rates and selected reduced-order-fee exceptions are included. Promoted listing and entered selling costs are then added before profit, break-even price, and target price are estimated.</p>
+          <p class="source-note">Fee data checked against <a href="https://www.ebay.co.uk/help/selling/fees-credits-invoices/fees-business-sellers-activated-managed-payments?id=4809">eBay UK's business seller fee page</a>, last updated 12 February 2026.</p>
+        </div>
+        <div class="card">
+          <h3>Before you rely on the result</h3>
+          <ul class="plain-list">
+            <li>Select the exact published subcategory exception when one applies.</li>
+            <li>Include packaging, labels, and other per-order costs.</li>
+            <li>Allow separately for taxes, international fees, seller-performance surcharges, discounts, returns, refunds, or overheads when relevant.</li>
+            <li>Recheck fees whenever marketplace rules change.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="profit-tips-heading">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Practical tips</p>
+          <h2 id="profit-tips-heading">Improve the quality of your estimate</h2>
+        </div>
+        <div class="card-grid">
+          <article class="card"><h3>Use real postage costs</h3><p>Use the amount you expect to pay after the item is packed, including any cover or service upgrades.</p></article>
+          <article class="card"><h3>Track small costs</h3><p>Mailers, tape, labels, inserts, and handling materials can reduce margin across many orders.</p></article>
+          <article class="card"><h3>Test promoted rates</h3><p>Try different promoted listing percentages to see how they may affect estimated profit.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Common questions</p><h2 id="faq-heading">eBay profit calculator FAQ</h2></div>
+        <div class="faq-list">
+          <details><summary>How do I calculate eBay profit?</summary><p>Add the money received from the sale, then subtract the item cost, postage, packaging, marketplace fees, promotion fees, and other sale-related costs.</p></details>
+          <details><summary>Does this include promoted listing fees?</summary><p>Yes. Enter a promoted listing percentage and the calculator estimates that fee from total revenue. Use zero if the listing is not promoted.</p></details>
+          <details><summary>Are eBay fees exact?</summary><p>No. The calculator follows the published UK business seller category, order, and regulatory fee structure, but account discounts, performance surcharges, international fees, taxes, listing conditions, and future fee changes can affect the real charge.</p></details>
+          <details><summary>What is a good profit margin for eBay sellers?</summary><p>There is no single margin that suits every product. This tool marks 20% or more as a healthy estimate, but your target should reflect returns, overheads, time, stock risk, and business goals.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="related-heading">
+      <div class="container">
+        <div class="section-heading"><h2 id="related-heading">Related seller tools</h2></div>
+        <div class="related-links">
+          <a href="../ebay-title-checker/">Build and improve a listing title</a>
+          <a href="../uk-parcel-size-checker/">Estimate a parcel category with the UK Parcel Size Checker</a>
+          <a href="../about/">Learn more about SellSmart Tools UK</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a><p>Free, practical tools for UK online sellers.</p></div>
+        <nav aria-label="Footer navigation"><ul class="footer-links"><li><a href="../about/">About</a></li><li><a href="../privacy-policy/">Privacy Policy</a></li><li><a href="../contact/">Contact</a></li></ul></nav>
+      </div>
+      <div class="footer-bottom"><p>Tools provide estimates only. Always check current marketplace and courier rules before making business decisions.</p><p>&copy; <span data-current-year></span> SellSmart Tools UK.</p><p class="footer-credit">Designed and developed by <a href="https://nomanmalik.co.uk/">Noman Ali Malik</a></p></div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/profit-calculator.js"></script>
+</body>
+</html>

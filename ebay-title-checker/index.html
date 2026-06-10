@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eBay Title Builder &amp; Checker | Free Seller Title Tool</title>
+  <meta name="description" content="Build and check eBay listing titles using verified product details, smart suggestions, character counts, and practical SEO checks.">
+  <!-- Update this relative canonical URL when the final custom domain is connected. -->
+  <link rel="canonical" href="./">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="SellSmart Tools UK home"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle>Menu</button>
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation" data-site-nav>
+        <ul class="nav-list">
+          <li><a href="../">Home</a></li>
+          <li><a href="../ebay-profit-calculator-uk/">Profit Calculator</a></li>
+          <li><a href="../ebay-title-checker/" aria-current="page">Title Builder</a></li>
+          <li><a href="../uk-parcel-size-checker/">Parcel Size Checker</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Free title builder and check</p>
+        <h1>eBay Title Builder &amp; Checker</h1>
+        <p class="lead">Turn verified product details into clear title suggestions, then check length, repeated words, weak wording, readability, and useful keywords.</p>
+        <div class="notice"><p><strong>Private and browser-based.</strong> Suggestions are built locally from the facts you enter. The tool does not send product data to an AI service or invent missing details.</p></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="builder-heading">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Smart suggestions</p>
+          <h2 id="builder-heading">Build a stronger title from product facts</h2>
+          <p>Enter only details you have verified. The builder uses as many useful details as possible without exceeding eBay's 80-character maximum.</p>
+        </div>
+        <div class="title-builder-layout">
+          <form class="tool-form" id="title-builder-form">
+            <div class="tool-form-heading">
+              <div>
+                <p class="tool-kicker">Product facts</p>
+                <h3>Describe the item</h3>
+              </div>
+              <span class="live-badge"><span aria-hidden="true"></span> Browser only</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="builder-product-type">Product type</label>
+                <input id="builder-product-type" name="productType" type="text" maxlength="40" placeholder="e.g. Phone case">
+                <p class="field-hint">The item buyers are searching for.</p>
+              </div>
+              <div class="form-field">
+                <label for="builder-brand">Brand</label>
+                <input id="builder-brand" name="brand" type="text" maxlength="30" placeholder="e.g. Apple">
+                <p class="field-hint">Leave blank if unbranded.</p>
+              </div>
+              <div class="form-field">
+                <label for="builder-model">Model or part number</label>
+                <input id="builder-model" name="model" type="text" maxlength="35" placeholder="e.g. iPhone 13">
+                <p class="field-hint">Use the exact model when known.</p>
+              </div>
+              <div class="form-field">
+                <label for="builder-compatibility">Compatibility</label>
+                <input id="builder-compatibility" name="compatibility" type="text" maxlength="40" placeholder="e.g. For iPhone 13">
+                <p class="field-hint">Useful for parts, cases, cables, and accessories.</p>
+              </div>
+              <div class="form-field">
+                <label for="builder-colour">Colour</label>
+                <input id="builder-colour" name="colour" type="text" maxlength="20" placeholder="e.g. Clear">
+              </div>
+              <div class="form-field">
+                <label for="builder-size">Size</label>
+                <input id="builder-size" name="size" type="text" maxlength="20" placeholder="e.g. Large or 128GB">
+              </div>
+              <div class="form-field">
+                <label for="builder-material">Material</label>
+                <input id="builder-material" name="material" type="text" maxlength="25" placeholder="e.g. Leather">
+              </div>
+              <div class="form-field">
+                <label for="builder-quantity">Quantity</label>
+                <input id="builder-quantity" name="quantity" type="text" maxlength="20" placeholder="e.g. Pack of 2">
+              </div>
+              <div class="form-field">
+                <label for="builder-condition">Condition</label>
+                <select id="builder-condition" name="condition">
+                  <option value="">Not needed in title</option>
+                  <option value="New">New</option>
+                  <option value="New Other">New Other</option>
+                  <option value="Used">Used</option>
+                  <option value="Refurbished">Refurbished</option>
+                  <option value="For Parts">For Parts</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="builder-feature">Key feature</label>
+                <input id="builder-feature" name="feature" type="text" maxlength="35" placeholder="e.g. Shockproof slim cover">
+                <p class="field-hint">One accurate feature that helps identify the item.</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="button" type="submit">Create suggestions</button>
+              <button class="button button-muted" type="reset">Clear details</button>
+            </div>
+          </form>
+
+          <aside class="smart-suggestions" id="title-suggestions" aria-live="polite">
+            <div class="result-placeholder">
+              <span class="result-placeholder-icon" aria-hidden="true">Aa</span>
+              <p>Add a product type and any verified details to create title suggestions.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="checker-heading">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Quality check</p>
+          <h2 id="checker-heading">Check your listing title</h2>
+          <p>Use a suggestion above or paste the exact title you plan to publish. This checker allows a maximum of 80 characters.</p>
+        </div>
+        <div class="tool-layout">
+          <form class="tool-form" id="title-checker-form">
+            <div class="form-field">
+              <label for="listing-title">Product title</label>
+              <textarea id="listing-title" name="listingTitle" maxlength="200" aria-describedby="live-character-count" placeholder="Example: iPhone 13 Clear Phone Case Shockproof Slim Cover Transparent" required></textarea>
+              <p class="field-hint" id="live-character-count">0 characters · 80 remaining</p>
+            </div>
+            <div class="form-actions">
+              <button class="button" type="submit">Check title</button>
+              <button class="button button-muted" type="reset">Clear</button>
+            </div>
+          </form>
+          <aside class="result-panel" id="title-results" aria-live="polite">
+            <div class="result-placeholder"><p>Enter a title and select <strong>Check title</strong> to see its score and suggestions.</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future AdSense or seller software affiliate placement could sit here. -->
+
+    <section class="section section-alt" aria-labelledby="how-heading">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-heading">A basic quality check, not a sales promise</h2>
+          <p>The checker starts at 100 and removes points for common problems: going over 80 characters, using a very short title, repeating words, excessive symbols, all caps, weak sales phrases, or missing specific details.</p>
+          <p>It checks the wording you provide. It cannot know the real brand, model, condition, or compatibility of your item.</p>
+        </div>
+        <div class="card">
+          <h3>Useful details to consider</h3>
+          <ul class="plain-list">
+            <li>Brand and product type</li>
+            <li>Model or compatibility</li>
+            <li>Size, colour, or material</li>
+            <li>Quantity or pack size</li>
+            <li>Condition, when it helps the buyer</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="example-heading">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">Title example</p>
+          <h2 id="example-heading">Replace hype with useful detail</h2>
+          <p>Buyers are more likely to search for the product and its features than words such as “wow” or “best”. Keep every claim accurate.</p>
+        </div>
+        <div class="example-box">
+          <div class="example example-bad"><strong>Less useful title</strong>WOW AMAZING PHONE CASE BEST CHEAP</div>
+          <div class="example example-good"><strong>Clearer title</strong>iPhone 13 Clear Phone Case Shockproof Slim Cover Transparent</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="tips-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Writing tips</p><h2 id="tips-heading">Make titles easier to find and read</h2></div>
+        <div class="card-grid">
+          <article class="card"><h3>Lead with the item</h3><p>Put the brand and product type near the start, where buyers can understand the listing quickly.</p></article>
+          <article class="card"><h3>Use specific details</h3><p>Add verified model, size, colour, material, quantity, condition, or compatibility details when useful.</p></article>
+          <article class="card"><h3>Avoid keyword stuffing</h3><p>Repeating similar phrases can make a title harder to read. Use natural wording and remove filler.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Common questions</p><h2 id="faq-heading">eBay title checker FAQ</h2></div>
+        <div class="faq-list">
+          <details><summary>How long can an eBay title be?</summary><p>eBay currently recommends a clear, concise title with no more than 80 characters. You do not need to add filler just to reach exactly 80.</p></details>
+          <details><summary>What should I include in an eBay title?</summary><p>Include accurate terms a buyer may search for, such as brand, product type, model, size, colour, material, quantity, condition, or compatibility.</p></details>
+          <details><summary>Should I use all caps in an eBay title?</summary><p>Normal casing is usually easier to read. All caps can feel like shouting and makes product details harder to scan.</p></details>
+          <details><summary>Are the title suggestions generated by AI?</summary><p>The static MVP uses a privacy-friendly browser algorithm rather than an external AI service. It rearranges only the verified facts you provide, so no API key or product-data upload is needed.</p></details>
+          <details><summary>Does this guarantee more sales?</summary><p>No. The checker highlights basic writing issues only. Price, demand, photos, item specifics, delivery, seller service, and many other factors can affect sales.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="related-heading">
+      <div class="container">
+        <div class="section-heading"><h2 id="related-heading">Related seller tools</h2></div>
+        <div class="related-links">
+          <a href="../ebay-profit-calculator-uk/">Estimate your margin with the eBay UK Profit Calculator</a>
+          <a href="../uk-parcel-size-checker/">Check packed dimensions with the UK Parcel Size Checker</a>
+          <a href="../about/">Learn more about SellSmart Tools UK</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a><p>Free, practical tools for UK online sellers.</p></div>
+        <nav aria-label="Footer navigation"><ul class="footer-links"><li><a href="../about/">About</a></li><li><a href="../privacy-policy/">Privacy Policy</a></li><li><a href="../contact/">Contact</a></li></ul></nav>
+      </div>
+      <div class="footer-bottom"><p>Tools provide estimates only. Always check current marketplace and courier rules before making business decisions.</p><p>&copy; <span data-current-year></span> SellSmart Tools UK.</p><p class="footer-credit">Designed and developed by <a href="https://nomanmalik.co.uk/">Noman Ali Malik</a></p></div>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/title-checker.js"></script>
+</body>
+</html>

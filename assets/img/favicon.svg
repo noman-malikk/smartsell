@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>SellSmart Tools UK</title>
+  <path
+    fill="#142c2f"
+    d="M21 7h25c8.3 0 15 6.7 15 15v25c0 8.3-6.7 15-15 15H21c-8.3 0-15-6.7-15-15V22C6 13.7 12.7 7 21 7Z"
+  />
+  <path
+    fill="#bff26b"
+    stroke="#142c2f"
+    stroke-width="3"
+    d="M17 3h25c8.3 0 15 6.7 15 15v25c0 8.3-6.7 15-15 15H18c-3.8 0-7.4-1.5-10.1-4.2L4.2 50A14.2 14.2 0 0 1 2 42V18C2 9.7 8.7 3 17 3Z"
+  />
+  <path
+    fill="none"
+    stroke="#142c2f"
+    stroke-linecap="round"
+    stroke-width="7"
+    d="M43.5 17.5c-3-3-7.2-4.5-12-4.5-7.7 0-13 3.8-13 9.7 0 5.8 4.8 8.2 13.4 9.3 8.4 1 12.1 3.5 12.1 9.2 0 6-5.4 9.8-13 9.8-5.5 0-10.4-1.8-13.8-5"
+  />
+  <circle cx="48" cy="13" r="4" fill="#ff785a" stroke="#142c2f" stroke-width="2"/>
+</svg>

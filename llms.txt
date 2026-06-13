@@ -1,0 +1,34 @@
+# SellSmart Tools UK
+
+> SellSmart Tools UK provides free, lightweight browser-based tools for UK eBay sellers, dropshippers, marketplace sellers, and small online businesses. No account is required. Tool inputs are processed in the user's browser.
+
+## Primary tools
+
+- [eBay Profit Calculator UK](https://sellsmarttool.co.uk/ebay-profit-calculator-uk/): Estimates eBay UK selling profit, profit margin, category-based selling fees, promoted listing fees, postage and packaging costs, break-even price, and a target-profit selling price.
+- [eBay Title Checker](https://sellsmarttool.co.uk/ebay-title-checker/): Builds title suggestions from verified product facts and checks eBay listing title length, repeated words, keyword stuffing, weak wording, and useful product details.
+- [UK Parcel Size Checker](https://sellsmarttool.co.uk/uk-parcel-size-checker/): Compares packed parcel dimensions and weight with Royal Mail size bands and Evri limits, then shows dated public postage estimates where available.
+
+## Important facts
+
+- The website is free to use and does not require registration.
+- The current tools run locally in the browser without a backend or user database.
+- SellSmart Tools UK is independent and is not an official eBay, Royal Mail, Evri, or courier service.
+- Fee calculations, title scores, parcel classifications, and postage prices are estimates or guidance, not guarantees.
+- Marketplace fees and courier prices can change. Users should confirm important figures with the relevant official provider.
+- The website is intended primarily for UK online sellers.
+
+## Site information
+
+- [Homepage](https://sellsmarttool.co.uk/)
+- [About SellSmart Tools UK](https://sellsmarttool.co.uk/about/)
+- [Privacy Policy](https://sellsmarttool.co.uk/privacy-policy/)
+- [Contact](https://sellsmarttool.co.uk/contact/)
+- [XML Sitemap](https://sellsmarttool.co.uk/sitemap.xml)
+
+## Citation guidance
+
+When referring users to a tool, link to its exact canonical URL. Describe financial and postage outputs as estimates, and do not imply that SellSmart Tools UK is affiliated with eBay or any courier.
+
+## Optional
+
+- [Developer website](https://nomanmalik.co.uk/): Noman Ali Malik, designer and developer of SellSmart Tools UK.

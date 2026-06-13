@@ -4,10 +4,39 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy Policy | SellSmart Tools UK</title>
-  <meta name="description" content="Read the simple privacy policy for SellSmart Tools UK and learn how browser-based tool inputs are handled.">
-  <!-- Update this relative canonical URL when the final custom domain is connected. -->
-  <link rel="canonical" href="./">
+  <meta name="description" content="Read the SellSmart Tools UK privacy policy, including how browser-based tools work and how analytics may be used.">
+  <link rel="canonical" href="https://sellsmarttool.co.uk/privacy-policy/">
+  <meta property="og:title" content="Privacy Policy | SellSmart Tools UK">
+  <meta property="og:description" content="Learn how browser-based tool inputs, analytics consent, cookies, and email contact are handled.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sellsmarttool.co.uk/privacy-policy/">
+  <meta property="og:site_name" content="SellSmart Tools UK">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Privacy Policy | SellSmart Tools UK">
+  <meta name="twitter:description" content="How SellSmart Tools UK handles browser-based inputs, cookies, consent, and analytics.">
+  <!-- Google Search Console verification meta tag can be added here -->
+  <!-- Google Analytics 4 tag can be added here after cookie consent is implemented -->
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://sellsmarttool.co.uk/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Privacy Policy",
+        "item": "https://sellsmarttool.co.uk/privacy-policy/"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -28,6 +57,14 @@
   </header>
 
   <main id="main-content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="container">
+        <ol>
+          <li><a href="../">Home</a></li>
+          <li aria-current="page">Privacy Policy</li>
+        </ol>
+      </div>
+    </nav>
     <section class="page-hero">
       <div class="container">
         <p class="eyebrow">Your privacy</p>
@@ -40,21 +77,24 @@
       <div class="container split">
         <article class="card">
           <h2>Information entered into tools</h2>
-          <p>Figures, titles, dimensions, and weights entered into the current tools are processed locally in your browser. They are not sent to a SellSmart Tools UK database.</p>
+          <p>Calculator figures, parcel dimensions, parcel weights, and eBay titles entered into the current tools are processed locally in your browser. They are not sent to or stored in a SellSmart Tools UK database or server.</p>
           <p>Do not enter sensitive personal, financial, customer, or account information into any tool.</p>
         </article>
         <article class="card">
           <h2>Accounts and storage</h2>
-          <p>No account or login is required. The current website has no user database and does not provide server-side file uploads.</p>
+          <p>No account or login is required. The website has no login system, user database, or server-side file uploads.</p>
           <p>The tools do not intentionally save your entries after you leave or refresh the page.</p>
         </article>
         <article class="card">
           <h2>Analytics, advertising, and cookies</h2>
-          <p>The MVP does not include external analytics, advertising scripts, or ad tracking. If analytics, advertising, affiliate tools, or cookies are added later, this policy will be updated before or when those services are introduced.</p>
+          <p>Google Analytics may be added later to understand general site usage. Analytics will only load after a visitor actively accepts analytics cookies and a real Google Analytics measurement ID has been configured.</p>
+          <p>You can reject analytics. Rejecting does not prevent you from using the tools. The current preference is saved in your browser's local storage so the banner does not appear on every page.</p>
+          <p id="cookie-preference-status" data-cookie-status>No analytics preference has been saved.</p>
+          <button class="cookie-settings" type="button" data-cookie-settings>Review analytics preference</button>
         </article>
         <article class="card">
           <h2>Contact</h2>
-          <p>There is no active website contact form. The contact page uses an email link, which opens your chosen email service or application.</p>
+          <p>Contact is currently available through an email link only. There is no active website contact form.</p>
           <p>Emails are handled by the sender's and recipient's email providers, not by the browser tools on this website.</p>
         </article>
       </div>
@@ -72,6 +112,14 @@
     </section>
   </main>
 
+  <aside class="cookie-banner" data-cookie-banner hidden aria-label="Analytics cookie choices">
+    <p><strong>Optional analytics</strong>Analytics is currently disabled. You can allow anonymous usage analytics later or reject it now. Read this privacy policy for details.</p>
+    <div class="cookie-actions">
+      <button class="button" type="button" data-cookie-choice="accepted">Accept analytics</button>
+      <button class="button button-muted" type="button" data-cookie-choice="rejected">Reject analytics</button>
+    </div>
+  </aside>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -81,6 +129,6 @@
       <div class="footer-bottom"><p>Tools provide estimates only. Always check current marketplace and courier rules before making business decisions.</p><p>&copy; <span data-current-year></span> SellSmart Tools UK.</p><p class="footer-credit">Designed and developed by <a href="https://nomanmalik.co.uk/">Noman Ali Malik</a></p></div>
     </div>
   </footer>
-  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/main.js?v=20260613"></script>
 </body>
 </html>

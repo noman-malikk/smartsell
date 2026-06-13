@@ -233,6 +233,33 @@ main {
   min-height: 60vh;
 }
 
+.breadcrumbs {
+  color: var(--colour-muted);
+  background: rgba(255, 254, 250, 0.78);
+  border-bottom: 1px solid rgba(20, 44, 47, 0.12);
+}
+
+.breadcrumbs ol {
+  display: flex;
+  margin: 0;
+  padding: 0.65rem 0;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  font-size: 0.82rem;
+  font-weight: 720;
+}
+
+.breadcrumbs li + li::before {
+  margin-right: 0.35rem;
+  color: var(--colour-primary);
+  content: "\203A";
+}
+
+.breadcrumbs a {
+  color: var(--colour-ink-soft);
+}
+
 .hero,
 .page-hero {
   position: relative;
@@ -690,6 +717,10 @@ p {
 
 .notice p:last-child {
   margin-bottom: 0;
+}
+
+.section-note {
+  margin-top: 1.5rem;
 }
 
 .page-hero .notice {
@@ -1485,6 +1516,55 @@ select {
   font-size: 1.15rem;
   font-weight: 900;
   overflow-wrap: anywhere;
+}
+
+.cookie-banner {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 500;
+  max-width: 44rem;
+  margin-inline: auto;
+  padding: 1rem;
+  color: var(--colour-ink);
+  background: var(--colour-paper);
+  border: 1.5px solid var(--colour-ink);
+  border-radius: 1rem;
+  box-shadow: 5px 5px 0 var(--colour-ink), 0 20px 50px rgba(20, 44, 47, 0.22);
+}
+
+.cookie-banner p {
+  margin: 0;
+}
+
+.cookie-banner strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.cookie-actions {
+  display: flex;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.cookie-actions .button {
+  min-height: 2.65rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.84rem;
+}
+
+.cookie-settings {
+  padding: 0;
+  color: var(--colour-primary-dark);
+  background: transparent;
+  border: 0;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
 }
 
 @media (min-width: 42rem) {

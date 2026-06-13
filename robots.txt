@@ -1,0 +1,33 @@
+# OpenAI search and user-requested retrieval
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic search and user-requested retrieval
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Google Search, including eligibility for AI Overviews and AI Mode
+User-agent: Googlebot
+Allow: /
+
+# AI model development crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# All other compliant crawlers
+User-agent: *
+Allow: /
+
+Sitemap: https://sellsmarttool.co.uk/sitemap.xml

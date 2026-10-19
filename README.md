@@ -7,6 +7,7 @@ SellSmart Tools UK is a lightweight static toolkit for UK eBay sellers, dropship
 - eBay UK Profit Calculator with estimated profit, margin, fees, break-even price, and target-profit price
 - eBay Title Builder & Checker with browser-based suggestions, an 80-character target, issue detection, and practical writing guidance
 - UK Parcel Size Checker using packed dimensions and weight
+- USDT perpetual Futures Trade Calculator with optional stops, automatic/manual quantity, isolated margin and live/manual prices
 - Unique metadata, canonical URLs, social sharing tags, and structured data
 - XML sitemap, robots.txt, breadcrumbs, and a custom 404 page
 - Explicit AI search crawler access and an experimental `llms.txt` site guide
@@ -14,7 +15,7 @@ SellSmart Tools UK is a lightweight static toolkit for UK eBay sellers, dropship
 - Responsive, mobile-first layout
 - Accessible labels, keyboard-friendly controls, and live result regions
 - About, privacy policy, and contact pages
-- No account, backend, database, API key, or external library
+- No account, backend, database, or API key required; the trade calculator includes a locally served decimal arithmetic library
 
 ## Tech stack
 
@@ -22,7 +23,7 @@ SellSmart Tools UK is a lightweight static toolkit for UK eBay sellers, dropship
 - CSS3
 - Vanilla JavaScript
 
-There is no build step and no npm dependency.
+The site serves directly as static files. An optional npm workflow now provides calculation tests, browser tests, linting and a validated static production package. Existing tools retain their original vanilla JavaScript.
 
 ## Folder structure
 
@@ -66,6 +67,50 @@ python3 -m http.server 8000
 ```
 
 Then visit `http://localhost:8000`.
+
+The trade calculator uses browser ES modules, so serve it over HTTP rather than opening its HTML with `file://`.
+
+## Crypto futures trade calculator
+
+Route: `/trade-calculator/`. The site's navigation links to it on every page.
+
+- `trade-calculator/index.html`: accessible form and result panel using the shared site design.
+- `assets/css/trade-calculator.css`: isolated calculator styles.
+- `assets/js/trade/calculator.js`: pure decimal financial functions and plain-text setup formatting.
+- `assets/js/trade/market.js`: interchangeable public market-data provider and disposable price feed.
+- `assets/js/trade/component.js`, `view.js`, `page.js`: reusable controller, result rendering and page lifecycle.
+- `assets/js/vendor/decimal.mjs`, `decimal-LICENCE.md`: pinned decimal.js 10.6.0 and its MIT licence; no runtime CDN dependency.
+- `tests/`: Node calculation/provider tests and Playwright browser tests.
+- `scripts/build.js`: validates links, JSON metadata and JavaScript syntax, verifies the vendored dependency, then packages public files into `dist/`.
+
+With a supplied stop, automatic quantity is maximum loss divided by stop distance. Without a stop, it is desired profit divided by take-profit distance; the stop is derived from maximum loss and quantity. Manual quantity is preserved. Actual signed PnL is recalculated after conservative exchange rounding. Risk/reward is consistently labelled **risk:reward**, such as `1:2` (the reward/risk quotient is also in the breakdown).
+
+Position notional is quantity × entry. Suggested isolated leverage is the lowest integer that fits an 80% wallet margin budget, capped at 10x. These product defaults are in `DEFAULT_SETTINGS` in `calculator.js`; matching explanatory text is in the page and view. The calculation API also accepts a trusted supported-leverage list or notional brackets. Public Binance metadata does not verify account-specific leverage brackets, fees or liquidation prices, so the UI explicitly labels leverage provisional and omits fee/liquidation estimates. The user must verify these on the exchange. No orders are sent.
+
+Binance USD-M Futures endpoints:
+
+- `https://fapi.binance.com/fapi/v1/exchangeInfo`: active USDT perpetual symbols, price ticks, LOT_SIZE, MARKET_LOT_SIZE and minimum notional; cached for 10 minutes.
+- `https://fapi.binance.com/fapi/v2/ticker/price?symbol=COMPUSDT`: initial/latest traded price and REST fallback.
+- `wss://fstream.binance.com/market/ws/compusdt@aggTrade`: ongoing futures trades. The feed has five bounded reconnect attempts, request timeouts, REST fallback with backoff and abort/cleanup on pair changes or leaving the page.
+
+Prices older than 30 seconds are labelled stale. A market move of at least 0.1%, or an ageing reference snapshot, flags recalculation. A first quote can populate an empty reference; subsequent network updates never reprice the result. Recalculate deliberately captures a fresh reference. Copy locks inputs and results; unlock or recalculate to continue. Clipboard rejection exposes selectable plain text. LIMIT uses the entered limit price independently of market data. Binance availability depends on region, CORS and network access; manual pricing works without network data, with exchange rules clearly marked unverified when unavailable.
+
+No deployment secrets or environment variables are needed. Keep the directory structure and serve `.js`/`.mjs` as JavaScript. GitHub Pages can continue publishing the repository root; alternatively publish the contents of `dist/`. Nothing has been deployed by this change.
+
+### Development verification
+
+Use Node.js 22.13+ (or a newer supported release) and Python 3 for the browser test server:
+
+```bash
+npm ci
+npx playwright install chromium
+npm test
+npm run test:browser
+npm run lint
+npm run build
+```
+
+The project has no TypeScript source or compiler. ESLint checks new code, and the build syntax-checks all public JavaScript, including existing tools. Browser tests use controlled network fixtures for reproducibility; they do not require Binance availability. `dist/`, `node_modules/`, and browser output are ignored by Git.
 
 ## Deploy to GitHub Pages
 

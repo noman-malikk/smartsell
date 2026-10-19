@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crypto Futures Trade Calculator | SellSmart Tools UK</title>
+  <meta name="description" content="Plan a USDT perpetual futures trade with position sizing, optional calculated stop loss, gross risk/reward and isolated margin estimates. Live futures prices or manual inputs.">
+  <link rel="canonical" href="https://sellsmarttool.co.uk/trade-calculator/">
+  <meta property="og:title" content="Crypto Futures Trade Calculator | SellSmart Tools UK">
+  <meta property="og:description" content="Calculate quantity, stop loss, gross profit and isolated margin for LONG or SHORT USDT perpetual futures trades.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sellsmarttool.co.uk/trade-calculator/">
+  <meta property="og:site_name" content="SellSmart Tools UK">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/trade-calculator.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Futures Trade Calculator","url":"https://sellsmarttool.co.uk/trade-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"All","isAccessibleForFree":true,"browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="SellSmart Tools UK home"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle>Menu</button>
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation" data-site-nav>
+        <ul class="nav-list">
+          <li><a href="../">Home</a></li>
+          <li><a href="../ebay-profit-calculator-uk/">Profit Calculator</a></li>
+          <li><a href="../ebay-title-checker/">Title Builder</a></li>
+          <li><a href="../uk-parcel-size-checker/">Parcel Size Checker</a></li>
+          <li><a href="./" aria-current="page">Trade Calculator</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" class="trade-calculator" data-trade-calculator>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><div class="container"><ol><li><a href="../">Home</a></li><li aria-current="page">Trade Calculator</li></ol></div></nav>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Know your numbers before you trade</p>
+        <h1>Crypto Futures Trade Calculator</h1>
+        <p class="lead">Plan your position, define your risk, and see the potential reward. A USDT perpetual futures calculator for LONG and SHORT trades.</p>
+        <div class="trade-tags"><span class="fee-chip">USDT perpetuals</span><span class="fee-chip">Isolated margin</span><span class="fee-chip">Gross PnL estimates</span></div>
+      </div>
+    </section>
+    <section class="section trade-section" aria-labelledby="calculator-heading">
+      <div class="container">
+        <h2 id="calculator-heading" class="visually-hidden">Plan a futures trade</h2>
+        <noscript><p class="error-message">Enable JavaScript to calculate a trade. No prices or results are available without it.</p></noscript>
+        <div class="trade-market-strip">
+          <div><span class="tool-kicker">Latest futures price · <span id="market-symbol">COMPUSDT</span></span><strong id="market-price">—</strong></div>
+          <div class="trade-market-meta"><span id="connection-status" class="fee-chip" role="status">Loading market data…</span><span id="market-time">No successful price update yet</span><span id="market-source">Binance USD-M Futures</span></div>
+        </div>
+        <div class="tool-layout trade-layout">
+          <form class="tool-form" id="trade-form" novalidate>
+            <div class="tool-form-heading"><div><p class="tool-kicker">01 / Your trade</p><h3>Build your setup</h3></div><span class="fee-chip">No account needed</span></div>
+            <fieldset id="trade-inputs" class="trade-fieldset">
+              <legend class="visually-hidden">Trade inputs</legend>
+              <div class="form-grid">
+                <div class="form-field form-field-full">
+                  <label for="trade-symbol">Trading pair</label>
+                  <input id="trade-symbol" name="symbol" value="COMPUSDT" list="trade-symbols" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="28" aria-describedby="symbol-hint error-symbol">
+                  <datalist id="trade-symbols"><option value="BTCUSDT"></option><option value="ETHUSDT"></option><option value="COMPUSDT"></option><option value="SOLUSDT"></option></datalist>
+                  <p class="field-hint" id="symbol-hint">Search or type a USDT perpetual pair. All prices are in USDT.</p>
+                  <p class="trade-field-error" id="error-symbol"></p>
+                </div>
+                <fieldset class="trade-fieldset form-field"><legend>Trade direction</legend><div class="trade-segmented"><label class="trade-long"><input type="radio" name="direction" value="LONG"><span>LONG</span></label><label class="trade-short"><input type="radio" name="direction" value="SHORT" checked><span>SHORT</span></label></div></fieldset>
+                <div class="form-field"><label for="trade-order">Order type</label><select id="trade-order" name="orderType"><option value="MARKET">MARKET</option><option value="LIMIT">LIMIT</option></select></div>
+                <div class="form-field"><label for="price-mode">Price input</label><select id="price-mode" name="priceMode"><option value="live">Use futures market data</option><option value="manual">Manual price</option></select></div>
+                <div class="form-field"><label for="trade-entry">Current / reference price</label><input id="trade-entry" name="marketEntry" type="text" inputmode="decimal" placeholder="Enter price or wait for data" maxlength="64" aria-describedby="entry-hint error-entry"><p class="field-hint" id="entry-hint">Waiting for a reference price. You can type one manually.</p><p class="trade-field-error" id="error-entry"></p></div>
+                <div class="form-field form-field-full" id="limit-field" hidden><label for="trade-limit">Intended limit entry price</label><input id="trade-limit" name="limitEntry" type="text" inputmode="decimal" placeholder="Your intended entry price" maxlength="64" aria-describedby="limit-hint error-limitEntry"><p class="field-hint" id="limit-hint">LIMIT calculations use this price, regardless of the latest market price.</p><p class="trade-field-error" id="error-limitEntry"></p></div>
+                <div class="form-field"><label for="trade-wallet">Wallet balance <span>(USDT)</span></label><input id="trade-wallet" name="wallet" type="text" inputmode="decimal" value="50" maxlength="64" aria-describedby="wallet-hint error-wallet"><p class="field-hint" id="wallet-hint">Use funds available for this trade.</p><p class="trade-field-error" id="error-wallet"></p></div>
+                <div class="form-field"><label for="trade-risk">Maximum trade loss <span>(USDT)</span></label><input id="trade-risk" name="risk" type="text" inputmode="decimal" value="5" maxlength="64" aria-describedby="risk-hint error-risk"><p class="field-hint" id="risk-hint">Intended gross loss at the stop.</p><p class="trade-field-error" id="error-risk"></p></div>
+                <div class="form-field"><label for="trade-profit">Desired trade profit <span>(USDT)</span></label><input id="trade-profit" name="profit" type="text" inputmode="decimal" value="10" maxlength="64" aria-describedby="profit-hint error-profit"><p class="field-hint" id="profit-hint">A sizing objective, not a guaranteed outcome.</p><p class="trade-field-error" id="error-profit"></p></div>
+                <div class="form-field"><label for="trade-tp">Take profit price</label><input id="trade-tp" name="tp" type="text" inputmode="decimal" placeholder="Required exit price" maxlength="64" aria-describedby="tp-hint error-tp"><p class="field-hint" id="tp-hint">Below entry for SHORT; above for LONG.</p><p class="trade-field-error" id="error-tp"></p></div>
+                <div class="form-field form-field-full"><label for="trade-sl">Stop loss price <span>(optional)</span></label><input id="trade-sl" name="sl" type="text" inputmode="decimal" placeholder="Leave empty to calculate your SL" maxlength="64" aria-describedby="sl-hint error-sl"><p class="field-hint" id="sl-hint">With a stop: size by risk. Without a stop: size by desired profit, then derive a money-management stop.</p><p class="trade-field-error" id="error-sl"></p></div>
+                <fieldset class="trade-fieldset form-field form-field-full"><legend>Quantity mode</legend><div class="trade-segmented"><label><input type="radio" name="quantityMode" value="auto" checked aria-label="Automatic quantity"><span>Automatic</span></label><label><input type="radio" name="quantityMode" value="manual" aria-label="Manual quantity"><span>Manual</span></label></div></fieldset>
+                <div class="form-field form-field-full"><label for="trade-quantity">Trade quantity <span id="quantity-unit">(COMP)</span></label><input id="trade-quantity" name="quantity" type="text" inputmode="decimal" placeholder="Calculated automatically" readonly maxlength="64" aria-describedby="quantity-hint error-quantity"><p class="field-hint" id="quantity-hint">Automatic quantities round down when exchange steps are known.</p><p class="trade-field-error" id="error-quantity"></p></div>
+                <label class="trade-checkbox form-field-full"><input type="checkbox" name="pendingOrder" id="pending-order"><span>Existing pending order for this pair and direction</span></label>
+              </div>
+            </fieldset>
+            <p class="field-hint trade-filter-info" id="filter-info">Loading exchange trading filters…</p>
+            <div class="form-actions"><button class="button button-muted" type="reset">Reset</button><button class="button" type="submit" id="recalculate">Recalculate</button></div>
+            <p class="field-hint">Edits update results instantly. Recalculate refreshes the reference snapshot. No orders are placed.</p>
+          </form>
+          <aside class="result-panel trade-result" aria-labelledby="setup-heading">
+            <div class="result-heading"><div><p class="tool-kicker">02 / Your trade setup</p><h3 id="setup-heading">COMPUSDT MARKET SHORT</h3></div><span class="fee-chip" id="setup-state">Draft</span></div>
+            <p id="snapshot-status" class="trade-snapshot" role="status">Enter a reference price and take profit to get started.</p>
+            <div id="trade-errors" class="error-message" role="status" hidden></div>
+            <div id="trade-empty" class="result-placeholder"><p><strong>A clearer view of your next trade.</strong></p><p>Add an entry and take-profit price to calculate quantity, margin, and your planned gross risk.</p></div>
+            <div id="trade-results" hidden>
+              <dl class="result-grid">
+                <div class="result-item result-featured"><dt>Gross take-profit PnL</dt><dd data-value="grossTP">—</dd></div>
+                <div class="result-item result-featured trade-loss"><dt>Gross stop-loss PnL</dt><dd data-value="grossSL">—</dd></div>
+                <div class="result-item"><dt>Reference entry price</dt><dd data-value="entry">—</dd></div>
+                <div class="result-item"><dt>Quantity</dt><dd data-value="quantity">—</dd></div>
+                <div class="result-item"><dt>Suggested leverage · provisional</dt><dd data-value="leverage">—</dd></div>
+                <div class="result-item"><dt>Approx isolated margin</dt><dd data-value="margin">—</dd></div>
+                <div class="result-item"><dt id="stop-label">Calculated SL</dt><dd data-value="sl">—</dd></div>
+                <div class="result-item"><dt>Take profit</dt><dd data-value="tp">—</dd></div>
+                <div class="result-item"><dt>Position size / notional</dt><dd data-value="notional">—</dd></div>
+                <div class="result-item"><dt>Risk/Reward · risk:reward</dt><dd data-value="rewardRisk">—</dd></div>
+                <div class="result-item"><dt>Wallet balance</dt><dd data-value="wallet">—</dd></div>
+                <div class="result-item"><dt>Remaining wallet · before costs</dt><dd data-value="remaining">—</dd></div>
+              </dl>
+              <div class="trade-meter"><label for="margin-meter">Isolated margin used <strong data-value="marginPercent">—</strong></label><progress id="margin-meter" max="100" value="0"></progress><p class="field-hint">Maximum margin budget: 80% of wallet. Basic buffer: 20%.</p></div>
+              <div class="trade-meter"><label for="risk-meter">Planned gross wallet risk <strong data-value="walletRisk">—</strong></label><progress id="risk-meter" max="100" value="0"></progress><p class="field-hint" id="risk-details"></p></div>
+              <details class="trade-breakdown"><summary>Calculation breakdown</summary><div id="calculation-breakdown"></div><div class="trade-table-wrap"><table><caption>Margin at different leverage levels</caption><thead><tr><th scope="col">Leverage</th><th scope="col">Margin</th><th scope="col">Fits budget</th></tr></thead><tbody id="leverage-comparisons"></tbody></table></div><p class="field-hint">Leverage changes margin and liquidation exposure. It does not independently multiply gross PnL for an already fixed-size position.</p></details>
+              <div class="trade-warnings"><h4>Before placing this trade</h4><ul id="trade-warnings"></ul></div>
+            </div>
+            <div class="form-actions trade-copy-actions"><button class="button button-muted" type="button" id="lock-setup" disabled>Lock setup</button><button class="button" type="button" id="copy-setup" disabled>Copy Trade Setup</button></div>
+            <p class="field-hint" id="copy-status" role="status"></p>
+            <div id="copy-fallback" hidden><label for="copy-text">Select and copy this setup</label><textarea id="copy-text" readonly rows="10"></textarea></div>
+          </aside>
+        </div>
+        <div class="notice section-note"><p><strong>Planning estimates only.</strong> No trading orders are sent. Gross PnL excludes trading fees, funding and slippage; net losses may exceed your selected gross risk. Verify your exchange's liquidation price and stop trigger settings before trading.</p></div>
+      </div>
+    </section>
+    <section class="section section-alt" aria-labelledby="trade-guide-heading"><div class="container"><div class="section-heading"><p class="eyebrow">Understand the setup</p><h2 id="trade-guide-heading">Risk first. Position size next.</h2></div><div class="card-grid">
+      <article class="card"><h3>Have a stop in mind?</h3><p>Quantity equals maximum loss divided by the distance to your stop. Your take-profit result follows from that quantity. A different profit objective never moves your chosen stop.</p></article>
+      <article class="card"><h3>Leave the stop blank</h3><p>Quantity comes from desired profit divided by the distance to take profit. The calculator then derives a stop from your risk budget. This is money management, not chart analysis.</p></article>
+      <article class="card"><h3>Keep margin separate</h3><p>Position value equals quantity × entry price. The calculator finds the lowest integer leverage up to 10x that fits the 80% margin budget. Check account-specific leverage limits on your exchange.</p></article>
+    </div><p class="source-note">Market source: <a href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data">Binance USD-M Futures public market data</a>. Prices are latest traded prices, not guaranteed fills or liquidation marks. Availability varies by network and region. Manual prices remain available. Opening this page sends public market-data requests to Binance; wallet and trade inputs stay in your browser.</p></div></section>
+  </main>
+  <aside class="cookie-banner" data-cookie-banner hidden aria-label="Analytics cookie choices"><p><strong>Optional analytics</strong>Analytics is currently disabled. You can allow anonymous usage analytics later or reject it now. Read the <a href="../privacy-policy/">privacy policy</a>.</p><div class="cookie-actions"><button class="button" type="button" data-cookie-choice="accepted">Accept analytics</button><button class="button button-muted" type="button" data-cookie-choice="rejected">Reject analytics</button></div></aside>
+  <footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a><p>Free, practical tools for UK online sellers.</p></div><nav aria-label="Footer navigation"><ul class="footer-links"><li><a href="../about/">About</a></li><li><a href="../privacy-policy/">Privacy Policy</a></li><li><a href="../contact/">Contact</a></li></ul></nav></div><div class="footer-bottom"><p>Tools provide estimates only. Always verify the figures before making financial decisions.</p><p>&copy; <span data-current-year></span> SellSmart Tools UK.</p><p class="footer-credit">Designed and developed by <a href="https://nomanmalik.co.uk/">Noman Ali Malik</a></p></div></div></footer>
+  <script src="../assets/js/main.js?v=20260613"></script>
+  <script type="module" src="../assets/js/trade/page.js"></script>
+</body>
+</html>

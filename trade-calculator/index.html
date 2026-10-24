@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crypto Futures Trade Calculator | SellSmart Tools UK</title>
-  <meta name="description" content="Plan a USDT perpetual futures trade with position sizing, optional calculated stop loss, gross risk/reward and isolated margin estimates. Live futures prices or manual inputs.">
+  <title>Crypto Spot &amp; Futures Trade Calculator | SellSmart Tools UK</title>
+  <meta name="description" content="Plan spot investments or USDT futures trades. Calculate coin quantity, profit at take profit, loss at stop loss and futures isolated margin using market or manual prices.">
   <link rel="canonical" href="https://sellsmarttool.co.uk/trade-calculator/">
-  <meta property="og:title" content="Crypto Futures Trade Calculator | SellSmart Tools UK">
-  <meta property="og:description" content="Calculate quantity, stop loss, gross profit and isolated margin for LONG or SHORT USDT perpetual futures trades.">
+  <meta property="og:title" content="Crypto Spot &amp; Futures Trade Calculator | SellSmart Tools UK">
+  <meta property="og:description" content="Calculate coin quantities and gross TP/SL returns for spot investments, or plan isolated-margin USDT perpetual futures trades.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sellsmarttool.co.uk/trade-calculator/">
   <meta property="og:site_name" content="SellSmart Tools UK">
@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/trade-calculator.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Futures Trade Calculator","url":"https://sellsmarttool.co.uk/trade-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"All","isAccessibleForFree":true,"browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Spot & Futures Trade Calculator","url":"https://sellsmarttool.co.uk/trade-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"All","isAccessibleForFree":true,"browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}
   </script>
 </head>
 <body>
@@ -39,17 +39,21 @@
       </nav>
     </div>
   </header>
-  <main id="main-content" class="trade-calculator" data-trade-calculator>
+  <main id="main-content" class="trade-calculator">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><div class="container"><ol><li><a href="../">Home</a></li><li aria-current="page">Trade Calculator</li></ol></div></nav>
     <section class="page-hero">
       <div class="container">
         <p class="eyebrow">Know your numbers before you trade</p>
-        <h1>Crypto Futures Trade Calculator</h1>
-        <p class="lead">Plan your position, define your risk, and see the potential reward. A USDT perpetual futures calculator for LONG and SHORT trades.</p>
-        <div class="trade-tags"><span class="fee-chip">USDT perpetuals</span><span class="fee-chip">Isolated margin</span><span class="fee-chip">Gross PnL estimates</span></div>
+        <h1 id="trade-title">Crypto Futures Trade Calculator</h1>
+        <p class="lead" id="trade-intro">Plan your position, define your risk, and see the potential reward. A USDT perpetual futures calculator for LONG and SHORT trades.</p>
+        <div class="trade-tags" id="market-tags"><span class="fee-chip">USDT perpetuals</span><span class="fee-chip">Isolated margin</span><span class="fee-chip">Gross PnL estimates</span></div>
+        <div class="trade-mode-tabs" role="tablist" aria-label="Trade market">
+          <button type="button" role="tab" id="spot-tab" aria-selected="false" aria-controls="spot-calculator" tabindex="-1">Spot</button>
+          <button type="button" role="tab" id="futures-tab" aria-selected="true" aria-controls="futures-calculator" tabindex="0">Futures</button>
+        </div>
       </div>
     </section>
-    <section class="section trade-section" aria-labelledby="calculator-heading">
+    <section class="section trade-section" id="futures-calculator" role="tabpanel" aria-labelledby="futures-tab" data-trade-calculator>
       <div class="container">
         <h2 id="calculator-heading" class="visually-hidden">Plan a futures trade</h2>
         <noscript><p class="error-message">Enable JavaScript to calculate a trade. No prices or results are available without it.</p></noscript>
@@ -122,7 +126,67 @@
         <div class="notice section-note"><p><strong>Planning estimates only.</strong> No trading orders are sent. Gross PnL excludes trading fees, funding and slippage; net losses may exceed your selected gross risk. Verify your exchange's liquidation price and stop trigger settings before trading.</p></div>
       </div>
     </section>
-    <section class="section section-alt" aria-labelledby="trade-guide-heading"><div class="container"><div class="section-heading"><p class="eyebrow">Understand the setup</p><h2 id="trade-guide-heading">Risk first. Position size next.</h2></div><div class="card-grid">
+    <section class="section trade-section" id="spot-calculator" role="tabpanel" aria-labelledby="spot-tab" data-spot-calculator hidden>
+      <div class="container">
+        <div class="trade-market-strip">
+          <div><span class="tool-kicker">Latest spot price · <span id="spot-market-symbol">QNTUSDT</span></span><strong id="spot-market-price">—</strong></div>
+          <div class="trade-market-meta"><span id="spot-connection" class="fee-chip" role="status">Loading spot data…</span><span id="spot-market-time">No successful price update yet</span><span id="spot-market-source">Binance Spot</span></div>
+        </div>
+        <div class="tool-layout trade-layout">
+          <form class="tool-form" id="spot-form" novalidate>
+            <div class="tool-form-heading"><div><p class="tool-kicker">01 / Your investment</p><h3>Plan a spot buy</h3></div><span class="fee-chip">Buy &amp; hold</span></div>
+            <fieldset id="spot-inputs" class="trade-fieldset">
+              <legend class="visually-hidden">Spot trade inputs</legend>
+              <div class="form-grid">
+                <div class="form-field form-field-full"><label for="spot-symbol">Spot trading pair</label><input id="spot-symbol" name="symbol" value="QNTUSDT" list="spot-symbols" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="28" aria-describedby="spot-symbol-hint spot-error-symbol"><datalist id="spot-symbols"><option value="QNTUSDT"></option><option value="BTCUSDT"></option><option value="ETHUSDT"></option><option value="SOLUSDT"></option></datalist><p class="field-hint" id="spot-symbol-hint">Search or type the coin you want to buy. Prices and investment amounts are in USDT.</p><p class="trade-field-error" id="spot-error-symbol"></p></div>
+                <div class="form-field"><label for="spot-price-mode">Spot price input</label><select id="spot-price-mode" name="priceMode"><option value="live">Use spot market data</option><option value="manual">Manual entry price</option></select></div>
+                <div class="form-field"><label for="spot-entry">Spot entry price <span>(USDT per coin)</span></label><input id="spot-entry" name="entry" inputmode="decimal" placeholder="e.g. 200" maxlength="64" aria-describedby="spot-entry-hint spot-error-entry"><p class="field-hint" id="spot-entry-hint">Use the market price, or enter your purchase price.</p><p class="trade-field-error" id="spot-error-entry"></p></div>
+                <div class="form-field form-field-full"><label for="spot-investment">Amount to invest <span>(USDT)</span></label><input id="spot-investment" name="investment" inputmode="decimal" value="50" maxlength="64" aria-describedby="spot-investment-hint spot-error-investment"><p class="field-hint" id="spot-investment-hint">The money you spend on this coin. For example, 100 USDT at 200 per coin buys 0.5 coins.</p><p class="trade-field-error" id="spot-error-investment"></p></div>
+                <div class="form-field"><label for="spot-tp">Spot take profit price</label><input id="spot-tp" name="tp" inputmode="decimal" placeholder="e.g. 220" maxlength="64" aria-describedby="spot-tp-hint spot-error-tp"><p class="field-hint" id="spot-tp-hint">Your target selling price, above entry.</p><p class="trade-field-error" id="spot-error-tp"></p></div>
+                <div class="form-field"><label for="spot-sl">Spot stop loss price <span>(optional)</span></label><input id="spot-sl" name="sl" inputmode="decimal" placeholder="e.g. 180" maxlength="64" aria-describedby="spot-sl-hint spot-error-sl"><p class="field-hint" id="spot-sl-hint">An exit below entry. Leave blank if you have not chosen a stop.</p><p class="trade-field-error" id="spot-error-sl"></p></div>
+              </div>
+            </fieldset>
+            <p class="field-hint trade-filter-info" id="spot-filter-info">Loading spot trading filters…</p>
+            <div class="form-actions"><button type="reset" class="button button-muted">Reset spot</button><button type="submit" class="button" id="spot-recalculate">Recalculate spot</button></div>
+            <p class="field-hint">Edits update instantly. Recalculate captures a fresh market reference. No orders are placed.</p>
+          </form>
+          <aside class="result-panel trade-result" aria-labelledby="spot-setup-heading">
+            <div class="result-heading"><div><p class="tool-kicker">02 / Your spot outcome</p><h3 id="spot-setup-heading">QNTUSDT SPOT BUY</h3></div><span class="fee-chip" id="spot-setup-state">Draft</span></div>
+            <p class="trade-snapshot" id="spot-snapshot" role="status">Add an entry price and take profit to see your potential return.</p>
+            <div id="spot-errors" class="error-message" role="status" hidden></div>
+            <div id="spot-empty" class="result-placeholder"><p><strong>See what your investment could return.</strong></p><p>Enter the coin price, your investment, and an exit target. Add a stop to see the potential loss.</p></div>
+            <div id="spot-results" hidden>
+              <dl class="result-grid">
+                <div class="result-item result-featured"><dt>Gross profit at TP</dt><dd data-spot-value="grossTP">—</dd></div>
+                <div class="result-item result-featured trade-loss"><dt>Gross loss at SL</dt><dd data-spot-value="grossSL">—</dd></div>
+                <div class="result-item"><dt>Coins bought</dt><dd data-spot-value="quantity">—</dd></div>
+                <div class="result-item"><dt>Entry price · USDT per coin</dt><dd data-spot-value="entry">—</dd></div>
+                <div class="result-item"><dt>Investment budget</dt><dd data-spot-value="investment">—</dd></div>
+                <div class="result-item"><dt>Amount invested · before fees</dt><dd data-spot-value="spent">—</dd></div>
+                <div class="result-item"><dt>Take profit price</dt><dd data-spot-value="tp">—</dd></div>
+                <div class="result-item"><dt>Coin value at TP</dt><dd data-spot-value="tpValue">—</dd></div>
+                <div class="result-item"><dt>Stop loss price</dt><dd data-spot-value="sl">—</dd></div>
+                <div class="result-item"><dt>Coin value at SL</dt><dd data-spot-value="slValue">—</dd></div>
+                <div class="result-item"><dt>Return at TP</dt><dd data-spot-value="tpPercent">—</dd></div>
+                <div class="result-item"><dt>Return at SL</dt><dd data-spot-value="slPercent">—</dd></div>
+                <div class="result-item"><dt>Unspent investment · after rounding</dt><dd data-spot-value="unspent">—</dd></div>
+                <div class="result-item"><dt>Risk/Reward · risk:reward</dt><dd data-spot-value="rewardRisk">—</dd></div>
+              </dl>
+              <div class="notice spot-explanation"><p id="spot-example"></p></div>
+              <details class="trade-breakdown"><summary>Calculation breakdown</summary><div id="spot-breakdown"></div></details>
+              <div class="trade-warnings"><h4>Before buying this coin</h4><ul id="spot-warnings"></ul></div>
+            </div>
+            <div class="form-actions trade-copy-actions"><button type="button" class="button button-muted" id="spot-lock" disabled>Lock spot setup</button><button type="button" class="button" id="spot-copy" disabled>Copy Spot Setup</button></div>
+            <p class="field-hint" id="spot-copy-status" role="status"></p>
+            <div id="spot-copy-fallback" hidden><label for="spot-copy-text">Select and copy your spot setup</label><textarea id="spot-copy-text" readonly rows="10"></textarea></div>
+          </aside>
+        </div>
+        <div class="notice section-note"><p><strong>Your coins, your investment.</strong> Quantity = amount invested ÷ entry price. Gross profit or loss = (exit price − entry price) × quantity. Spot mode models a fully paid coin purchase, with no borrowed funds.</p></div>
+        <p class="source-note">Spot prices come from <a href="https://developers.binance.com/en/docs/catalog/core-trading-spot-trading/api/rest-api/market">Binance Spot public market data</a>. Enter a manual price if data is unavailable. Gross results exclude fees and slippage; coin values at TP and SL exclude any unspent balance. Your investment and exit inputs stay in your browser.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="futures-guide" aria-labelledby="trade-guide-heading"><div class="container"><div class="section-heading"><p class="eyebrow">Understand the setup</p><h2 id="trade-guide-heading">Risk first. Position size next.</h2></div><div class="card-grid">
       <article class="card"><h3>Have a stop in mind?</h3><p>Quantity equals maximum loss divided by the distance to your stop. Your take-profit result follows from that quantity. A different profit objective never moves your chosen stop.</p></article>
       <article class="card"><h3>Leave the stop blank</h3><p>Quantity comes from desired profit divided by the distance to take profit. The calculator then derives a stop from your risk budget. This is money management, not chart analysis.</p></article>
       <article class="card"><h3>Keep margin separate</h3><p>Position value equals quantity × entry price. The calculator finds the lowest integer leverage up to 10x that fits the 80% margin budget. Check account-specific leverage limits on your exchange.</p></article>

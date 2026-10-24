@@ -16,7 +16,7 @@ function positiveFilter(value) {
   return positiveDecimal(value);
 }
 
-function commonStep(lots) {
+export function commonStep(lots) {
   // LCM on scaled integers handles non-nested steps, e.g. 0.02 and 0.03.
   const steps = lots.map(lot => positiveFilter(lot.stepSize)).filter(Boolean);
   if (!steps.length) return new D('1e-18');

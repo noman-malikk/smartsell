@@ -79,6 +79,8 @@ export function createPriceFeed(symbol, { onPrice, onStatus }, options = {}) {
     staleAfter = STALE_AFTER_MS, connectionTimeout = 10_000,
   } = options;
   const controller = new AbortController();
+  const label = provider.label ?? 'Binance USD-M Futures';
+  const parseStreamQuote = provider.parseStreamQuote ?? ((data, pair, time) => parseQuote(data, pair, 'WebSocket', time));
   const timers = new Set();
   let disposed = false;
   let socket;
@@ -124,7 +126,7 @@ export function createPriceFeed(symbol, { onPrice, onStatus }, options = {}) {
         if (disposed) return null;
         failures = 0;
         emit(quote);
-        status(now() - lastSocketPrice < staleAfter ? 'live' : 'polling', 'Binance USD-M Futures; latest traded price.');
+        status(now() - lastSocketPrice < staleAfter ? 'live' : 'polling', `${label}; latest traded price.`);
         return quote;
       } catch (error) {
         if (!disposed) {
@@ -142,7 +144,7 @@ export function createPriceFeed(symbol, { onPrice, onStatus }, options = {}) {
   }
   function connect() {
     if (disposed) return;
-    status('connecting', 'Connecting to Binance USD-M Futures…');
+    status('connecting', `Connecting to ${label}…`);
     let current;
     let ended = false;
     let watchdog;
@@ -164,14 +166,14 @@ export function createPriceFeed(symbol, { onPrice, onStatus }, options = {}) {
       current.onmessage = event => {
         if (disposed || ended) return;
         try {
-          const quote = parseQuote(JSON.parse(event.data), symbol, 'WebSocket', now());
+          const quote = parseStreamQuote(JSON.parse(event.data), symbol, now());
           if (!quote) return;
           cancel(watchdog);
           const accepted = emit(quote);
           // Replayed or delayed traffic is not evidence of a healthy price feed.
           if (accepted && now() - quote.timestamp <= staleAfter) {
             lastSocketPrice = now();
-            status('live', 'Binance USD-M Futures WebSocket; latest traded price.');
+            status('live', `${label} WebSocket; latest traded price.`);
           }
         } catch { /* Ignore malformed frames without disrupting manual calculations. */ }
       };

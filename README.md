@@ -7,7 +7,7 @@ SellSmart Tools UK is a lightweight static toolkit for UK eBay sellers, dropship
 - eBay UK Profit Calculator with estimated profit, margin, fees, break-even price, and target-profit price
 - eBay Title Builder & Checker with browser-based suggestions, an 80-character target, issue detection, and practical writing guidance
 - UK Parcel Size Checker using packed dimensions and weight
-- USDT perpetual Futures Trade Calculator with optional stops, automatic/manual quantity, isolated margin and live/manual prices
+- Spot & Futures Trade Calculator: spot investment returns plus USDT perpetual risk sizing, optional stops, isolated margin and live/manual prices
 - Unique metadata, canonical URLs, social sharing tags, and structured data
 - XML sitemap, robots.txt, breadcrumbs, and a custom 404 page
 - Explicit AI search crawler access and an experimental `llms.txt` site guide
@@ -70,9 +70,15 @@ Then visit `http://localhost:8000`.
 
 The trade calculator uses browser ES modules, so serve it over HTTP rather than opening its HTML with `file://`.
 
-## Crypto futures trade calculator
+## Crypto spot & futures trade calculator
 
 Route: `/trade-calculator/`. The site's navigation links to it on every page.
+
+Use the **Spot / Futures** tabs on that page. Each mode keeps its own form, market source and locked setup when switching. The inactive mode suspends network connections and timers. Futures remains the default.
+
+Spot takes a USDT coin pair, entry price, amount to invest, take-profit price and optional stop-loss price. Quantity = investment ÷ entry, rounded down to known exchange quantity steps. Gross PnL = (exit − entry) × that quantity. Results show coins bought, amount spent, unspent balance, coin value at TP/SL, signed gross returns and percentages. A blank stop remains unset. Example: 100 USDT at 200 buys 0.5 QNT; TP 220 gives 110 USDT coin value and +10 USDT gross profit. Investing 50 instead buys 0.25 QNT and gives +5 USDT profit.
+
+Spot implementation: `assets/js/trade/spot-calculator.js` (decimal calculations), `spot-market.js` (spot-only provider), `spot-component.js` (form/controller/results). Tests are in `tests/spot*.test.js` and `tests/browser/spot.spec.js`. Spot uses `https://api.binance.com/api/v3/exchangeInfo?permissions=SPOT`, `/api/v3/trades?symbol=QNTUSDT&limit=1` for a trade price with a real exchange timestamp, and `wss://stream.binance.com:9443/ws/qntusdt@aggTrade`. It never borrows a futures quote. Spot order minimums are checked using the reference price; execution rules that depend on exchange average prices must be verified on the exchange.
 
 - `trade-calculator/index.html`: accessible form and result panel using the shared site design.
 - `assets/css/trade-calculator.css`: isolated calculator styles.
@@ -95,7 +101,7 @@ Binance USD-M Futures endpoints:
 
 Prices older than 30 seconds are labelled stale. A market move of at least 0.1%, or an ageing reference snapshot, flags recalculation. A first quote can populate an empty reference; subsequent network updates never reprice the result. Recalculate deliberately captures a fresh reference. Copy locks inputs and results; unlock or recalculate to continue. Clipboard rejection exposes selectable plain text. LIMIT uses the entered limit price independently of market data. Binance availability depends on region, CORS and network access; manual pricing works without network data, with exchange rules clearly marked unverified when unavailable.
 
-No deployment secrets or environment variables are needed. Keep the directory structure and serve `.js`/`.mjs` as JavaScript. GitHub Pages can continue publishing the repository root; alternatively publish the contents of `dist/`. Nothing has been deployed by this change.
+No deployment secrets or environment variables are needed. Keep the directory structure and serve `.js`/`.mjs` as JavaScript. GitHub Pages can continue publishing the repository root; alternatively publish the contents of `dist/`. Nothing has been deployed by this change. For the current local preview, use `python3 -m http.server 8080 --bind 127.0.0.1` and open `http://localhost:8080/trade-calculator/`.
 
 ### Development verification
 

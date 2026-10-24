@@ -214,14 +214,17 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
     if (find('#copy-setup').disabled) return;
     const content = tradeText(result, {
       source: field('orderType').value === 'LIMIT' ? 'manual limit entry' : source === 'live' ? reference.source : 'manual',
-      timestamp: source === 'live' && reference ? new Date(reference.timestamp).toISOString() : '',
+      timestamp: field('orderType').value === 'MARKET' && source === 'live' && reference ? new Date(reference.timestamp).toISOString() : '',
       pendingOrder: field('pendingOrder').checked,
     });
     setLocked(true);
+    const copyRevision = revision;
     try {
       await navigator.clipboard.writeText(content);
+      if (disposed || revision !== copyRevision) return;
       find('#copy-status').textContent = 'Copied. This setup is locked; unlock to edit or recalculate for a fresh snapshot.';
     } catch {
+      if (disposed || revision !== copyRevision) return;
       find('#copy-fallback').hidden = false;
       find('#copy-text').value = content;
       find('#copy-text').focus();

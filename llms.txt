@@ -1,12 +1,13 @@
 # SellSmart Tools UK
 
-> SellSmart Tools UK provides free, lightweight browser-based tools for UK eBay sellers, dropshippers, marketplace sellers, and small online businesses. No account is required. Tool inputs are processed in the user's browser.
+> SellSmart Tools UK provides free, lightweight browser-based tools for UK eBay sellers, dropshippers, marketplace sellers, small online businesses, and users planning crypto spot or futures trades. No account is required. Tool inputs are processed in the user's browser.
 
 ## Primary tools
 
 - [eBay Profit Calculator UK](https://sellsmarttool.co.uk/ebay-profit-calculator-uk/): Estimates eBay UK selling profit, profit margin, category-based selling fees, promoted listing fees, postage and packaging costs, break-even price, and a target-profit selling price.
 - [eBay Title Checker](https://sellsmarttool.co.uk/ebay-title-checker/): Builds title suggestions from verified product facts and checks eBay listing title length, repeated words, keyword stuffing, weak wording, and useful product details.
-- [UK Parcel Size Checker](https://sellsmarttool.co.uk/uk-parcel-size-checker/): Compares packed parcel dimensions and weight with Royal Mail size bands and Evri limits, then shows dated public postage estimates where available.
+- [UK Parcel Size Checker](https://sellsmarttool.co.uk/uk-parcel-size-checker/): Compares packed parcel dimensions and weight with Royal Mail size bands and Evri limits, then shows weight-based Royal Mail online postage for 1st Class, 2nd Class, Tracked 24 and Tracked 48. Royal Mail tariff effective 5 October 2026, checked 29 October 2026; Evri estimates last checked 9 June 2026.
+- [Crypto Spot & Futures Trade Calculator](https://sellsmarttool.co.uk/trade-calculator/): Calculates spot investment returns and coin quantity, or USDT perpetual futures position size, stop loss, take profit, gross PnL, risk:reward, wallet risk and provisional isolated margin. Supports separate live market feeds and manual prices; no orders are placed.
 
 ## Important facts
 
@@ -15,7 +16,7 @@
 - SellSmart Tools UK is independent and is not an official eBay, Royal Mail, Evri, or courier service.
 - Fee calculations, title scores, parcel classifications, and postage prices are estimates or guidance, not guarantees.
 - Marketplace fees and courier prices can change. Users should confirm important figures with the relevant official provider.
-- The website is intended primarily for UK online sellers.
+- Seller and postage tools are intended primarily for the UK. Crypto calculators use USDT amounts and do not provide investment advice. Gross trading outputs exclude fees, funding and slippage, and no liquidation price is calculated.
 
 ## Site information
 

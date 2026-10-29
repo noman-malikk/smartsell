@@ -1707,3 +1707,31 @@ select {
     transition-duration: 0.01ms !important;
   }
 }
+.postage-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-block: 1.5rem;
+}
+
+.postage-price-table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.postage-price-table caption {
+  text-align: left;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.postage-price-table th,
+.postage-price-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--colour-border);
+}
+
+.postage-price-table thead {
+  background: var(--colour-primary-soft);
+}

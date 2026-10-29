@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crypto Spot &amp; Futures Trade Calculator | SellSmart Tools UK</title>
-  <meta name="description" content="Plan spot investments or USDT futures trades. Calculate coin quantity, profit at take profit, loss at stop loss and futures isolated margin using market or manual prices.">
+  <title>Spot &amp; Futures Trade Calculator | Position Size &amp; Risk</title>
+  <meta name="description" content="Free crypto spot and futures trade calculator for profit, position size, stop loss, take profit, risk/reward and isolated margin. Use live or manual prices.">
   <link rel="canonical" href="https://sellsmarttool.co.uk/trade-calculator/">
-  <meta property="og:title" content="Crypto Spot &amp; Futures Trade Calculator | SellSmart Tools UK">
-  <meta property="og:description" content="Calculate coin quantities and gross TP/SL returns for spot investments, or plan isolated-margin USDT perpetual futures trades.">
+  <meta property="og:title" content="Spot &amp; Futures Trade Calculator | Position Size &amp; Risk">
+  <meta property="og:description" content="Free crypto spot and futures trade calculator for profit, position size, stop loss, take profit, risk/reward and isolated margin. Use live or manual prices.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sellsmarttool.co.uk/trade-calculator/">
   <meta property="og:site_name" content="SellSmart Tools UK">
@@ -18,8 +18,114 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/trade-calculator.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"Crypto Spot & Futures Trade Calculator","url":"https://sellsmarttool.co.uk/trade-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"All","isAccessibleForFree":true,"browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}}
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Crypto Spot & Futures Trade Calculator",
+        "url": "https://sellsmarttool.co.uk/trade-calculator/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "isAccessibleForFree": true,
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "GBP"
+        },
+        "description": "Free crypto spot and futures trade calculator for profit, position size, stop loss, take profit, risk/reward and isolated margin. Use live or manual prices.",
+        "dateModified": "2026-10-29",
+        "inLanguage": "en-GB",
+        "publisher": {
+          "@id": "https://sellsmarttool.co.uk/#organization"
+        },
+        "@id": "https://sellsmarttool.co.uk/trade-calculator/#application",
+        "featureList": [
+          "Crypto spot investment profit and coin quantity",
+          "LONG and SHORT USDT perpetual futures position sizing",
+          "Stop-loss and take-profit calculations",
+          "Gross profit and loss, percentage returns and risk:reward",
+          "Wallet risk and provisional isolated leverage and margin",
+          "Separate live spot and futures prices or manual reference prices",
+          "Copyable trade setups"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://sellsmarttool.co.uk/trade-calculator/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://sellsmarttool.co.uk/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Trade Calculator",
+            "item": "https://sellsmarttool.co.uk/trade-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://sellsmarttool.co.uk/trade-calculator/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does the spot trading profit calculator show?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Spot mode estimates coin quantity from your investment and entry price, then shows gross profit at take profit and gross loss at an optional stop loss. It models a fully paid purchase without leverage. Fees and slippage are excluded."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the futures position size calculator manage risk?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "With a supplied stop loss, quantity equals maximum planned loss divided by the distance between entry and stop. Without a supplied stop, quantity comes from desired profit and take-profit distance, then a stop is derived from the risk budget. Exchange rounding can change the final numbers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does a 1:2 risk/reward ratio mean?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A risk:reward ratio of 1:2 means the planned gross reward is twice the planned gross loss. For example, a 5 USDT loss at the stop and a 10 USDT profit at the target give 1:2. It does not describe the chance of winning."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the calculator without live crypto prices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Enter manual reference or entry prices when live data is unavailable. Spot and futures use separate market feeds. Recalculate deliberately to use a new reference; a live price update does not silently change your planned result."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the calculator include fees, funding or liquidation prices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Trade outputs are gross estimates before fees, funding and slippage. Futures leverage is a provisional margin estimate, and the calculator does not determine liquidation prices. Check exchange rules and stop settings before placing an order."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:image" content="https://sellsmarttool.co.uk/assets/img/apple-touch-icon.png">
+  <meta property="og:image:alt" content="SellSmart Tools UK logo">
+  <meta name="twitter:title" content="Spot &amp; Futures Trade Calculator | Position Size &amp; Risk">
+  <meta name="twitter:description" content="Free crypto spot and futures trade calculator for profit, position size, stop loss, take profit, risk/reward and isolated margin. Use live or manual prices.">
+  <meta name="twitter:image" content="https://sellsmarttool.co.uk/assets/img/apple-touch-icon.png">
+  <meta name="twitter:image:alt" content="SellSmart Tools UK logo">
+  <meta name="robots" content="index, follow, max-image-preview:large">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -44,8 +150,8 @@
     <section class="page-hero">
       <div class="container">
         <p class="eyebrow">Know your numbers before you trade</p>
-        <h1 id="trade-title">Crypto Futures Trade Calculator</h1>
-        <p class="lead" id="trade-intro">Plan your position, define your risk, and see the potential reward. A USDT perpetual futures calculator for LONG and SHORT trades.</p>
+        <h1 id="trade-title">Crypto Spot &amp; Futures Trade Calculator</h1>
+        <p class="lead" id="trade-intro">Use this free trade calculator for crypto spot profit and futures risk management. Calculate position size, stop loss, take profit, risk/reward and isolated margin. Choose Spot or Futures to begin.</p>
         <div class="trade-tags" id="market-tags"><span class="fee-chip">USDT perpetuals</span><span class="fee-chip">Isolated margin</span><span class="fee-chip">Gross PnL estimates</span></div>
         <div class="trade-mode-tabs" role="tablist" aria-label="Trade market">
           <button type="button" role="tab" id="spot-tab" aria-selected="false" aria-controls="spot-calculator" tabindex="-1">Spot</button>
@@ -191,6 +297,36 @@
       <article class="card"><h3>Leave the stop blank</h3><p>Quantity comes from desired profit divided by the distance to take profit. The calculator then derives a stop from your risk budget. This is money management, not chart analysis.</p></article>
       <article class="card"><h3>Keep margin separate</h3><p>Position value equals quantity × entry price. The calculator finds the lowest integer leverage up to 10x that fits the 80% margin budget. Check account-specific leverage limits on your exchange.</p></article>
     </div><p class="source-note">Market source: <a href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data">Binance USD-M Futures public market data</a>. Prices are latest traded prices, not guaranteed fills or liquidation marks. Availability varies by network and region. Manual prices remain available. Opening this page sends public market-data requests to Binance; wallet and trade inputs stay in your browser.</p></div></section>
+
+    <section class="section" aria-labelledby="spot-profit-heading">
+      <div class="container split">
+        <div><p class="eyebrow">Spot investment calculator</p><h2 id="spot-profit-heading">Calculate crypto spot profit and coin quantity</h2><p>Enter your USDT investment, coin entry price and take-profit price. Add a stop-loss price if you want to compare the planned loss as well as the potential profit. The spot calculator shows coins bought, amount spent, unspent balance, exit value and gross percentage return.</p><p>For example, 100 USDT at an entry of 200 buys 0.5 coins before exchange rounding. Selling at 220 gives a value of 110 USDT and a gross profit of 10 USDT (10%). A stop at 180 gives a planned gross loss of 10 USDT. This example excludes fees and slippage.</p></div>
+        <div class="card"><h3>How to use spot mode</h3><ol class="plain-list"><li>Select the Spot tab and choose a coin pair.</li><li>Enter your investment and entry price.</li><li>Add take profit and an optional stop loss.</li><li>Review gross returns, then copy your setup if you want to keep it.</li></ol><p>Spot prices come from the spot market; futures prices are kept separate. Manual prices also work.</p></div>
+      </div>
+    </section>
+    <section class="section section-alt" aria-labelledby="risk-management-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Simple risk management calculations</p><h2 id="risk-management-heading">Futures position size, stop loss and risk/reward calculator</h2><p>Plan LONG or SHORT USDT perpetual trades using your wallet balance, maximum trade loss, entry, take profit and optional stop. Review quantity, position value, gross PnL, wallet risk and provisional isolated margin before placing an order yourself.</p></div>
+        <div class="card-grid">
+          <article class="card"><h3>Position size example</h3><p>For a LONG entry at 100 and a stop at 95, the stop distance is 5 USDT per coin. A planned gross loss of 10 USDT gives a quantity of 2 coins before exchange rounding.</p></article>
+          <article class="card"><h3>Take profit and risk/reward</h3><p>With the same 2 coins, a take-profit price of 110 gives a gross reward of 20 USDT. Compared with the 10 USDT planned loss, the risk:reward ratio is 1:2.</p></article>
+          <article class="card"><h3>Leverage and margin</h3><p>A 200 USDT position at 5x leverage needs about 40 USDT of initial margin before exchange adjustments. Leverage changes margin needs; it does not change the gross PnL of a fixed quantity.</p></article>
+        </div>
+        <p class="source-note">Examples explain the calculations, not which trade to take. Stops may fill at a different price, and fees, funding and slippage can make losses larger than the planned gross risk.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="trade-faq-heading">
+      <div class="container"><div class="section-heading"><h2 id="trade-faq-heading">Spot, futures and risk management FAQ</h2></div>
+        <div class="faq-list">
+          <details><summary>What does the spot trading profit calculator show?</summary><p>Spot mode estimates coin quantity from your investment and entry price, then shows gross profit at take profit and gross loss at an optional stop loss. It models a fully paid purchase without leverage. Fees and slippage are excluded.</p></details>
+          <details><summary>How does the futures position size calculator manage risk?</summary><p>With a supplied stop loss, quantity equals maximum planned loss divided by the distance between entry and stop. Without a supplied stop, quantity comes from desired profit and take-profit distance, then a stop is derived from the risk budget. Exchange rounding can change the final numbers.</p></details>
+          <details><summary>What does a 1:2 risk/reward ratio mean?</summary><p>A risk:reward ratio of 1:2 means the planned gross reward is twice the planned gross loss. For example, a 5 USDT loss at the stop and a 10 USDT profit at the target give 1:2. It does not describe the chance of winning.</p></details>
+          <details><summary>Can I use the calculator without live crypto prices?</summary><p>Yes. Enter manual reference or entry prices when live data is unavailable. Spot and futures use separate market feeds. Recalculate deliberately to use a new reference; a live price update does not silently change your planned result.</p></details>
+          <details><summary>Does the calculator include fees, funding or liquidation prices?</summary><p>No. Trade outputs are gross estimates before fees, funding and slippage. Futures leverage is a provisional margin estimate, and the calculator does not determine liquidation prices. Check exchange rules and stop settings before placing an order.</p></details>
+        </div>
+      </div>
+    </section>
+    <section class="section section-alt" aria-labelledby="trade-related-heading"><div class="container"><div class="section-heading"><h2 id="trade-related-heading">More free SellSmart calculators</h2></div><div class="related-links"><a href="../ebay-profit-calculator-uk/">eBay fee and profit calculator UK</a><a href="../uk-parcel-size-checker/">Royal Mail postage and parcel size checker</a><a href="../ebay-title-checker/">eBay title builder and checker</a></div></div></section>
   </main>
   <aside class="cookie-banner" data-cookie-banner hidden aria-label="Analytics cookie choices"><p><strong>Optional analytics</strong>Analytics is currently disabled. You can allow anonymous usage analytics later or reject it now. Read the <a href="../privacy-policy/">privacy policy</a>.</p><div class="cookie-actions"><button class="button" type="button" data-cookie-choice="accepted">Accept analytics</button><button class="button button-muted" type="button" data-cookie-choice="rejected">Reject analytics</button></div></aside>
   <footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SS</span><span>SellSmart Tools UK</span></a><p>Free, practical tools for UK online sellers.</p></div><nav aria-label="Footer navigation"><ul class="footer-links"><li><a href="../about/">About</a></li><li><a href="../privacy-policy/">Privacy Policy</a></li><li><a href="../contact/">Contact</a></li></ul></nav></div><div class="footer-bottom"><p>Tools provide estimates only. Always verify the figures before making financial decisions.</p><p>&copy; <span data-current-year></span> SellSmart Tools UK.</p><p class="footer-credit">Designed and developed by <a href="https://nomanmalik.co.uk/">Noman Ali Malik</a></p></div></div></footer>

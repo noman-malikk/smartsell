@@ -133,6 +133,8 @@ Replace the placeholder contact email if needed before promoting the contact pag
 
 ## SEO files
 
+See [SEO setup and indexing handoff](docs/seo-setup.md) for the keyword map, implemented checks, Royal Mail tariff maintenance and Google/Bing submission steps. The build validates canonical URLs, sitemap coverage, unique search metadata and indexability before packaging.
+
 - Sitemap: `https://sellsmarttool.co.uk/sitemap.xml`
 - Robots file: `https://sellsmarttool.co.uk/robots.txt`
 - AI-readable site guide: `https://sellsmarttool.co.uk/llms.txt`

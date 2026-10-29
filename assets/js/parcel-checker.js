@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   var form = document.querySelector("#parcel-checker-form");
   var results = document.querySelector("#parcel-results");
-  var priceCheckedDate = "9 June 2026";
+  var royalMailPriceCheckedDate = "29 October 2026";
+  var evriPriceCheckedDate = "9 June 2026";
 
   var royalMailFormats = [
     { id: "letter", label: "Letter", maxWeight: 0.1, dimensions: [24, 16.5, 0.5] },
@@ -11,32 +12,36 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: "medium-parcel", label: "Medium Parcel", maxWeight: 20, dimensions: [61, 46, 46] }
   ];
 
+  // Public ONLINE tariff, effective 5 October 2026, checked 29 October 2026.
+  // Source: https://www.royalmail.com/sites/royalmail.com/files/2026-10/online-price-guide-october-2026-v1.pdf
+  // Pages 5–6. Each band is [inclusive maximum weight in kg, price in GBP].
+  // Collection (50p per item), signature and other extras are excluded.
   var royalMailPrices = {
     "letter": [
-      { service: "Royal Mail 2nd Class", price: 0.91, aim: "2-3 working days", tracked: false },
-      { service: "Royal Mail 1st Class", price: 1.80, aim: "Next working day aim", tracked: false }
+      { service: "Royal Mail 2nd Class", bands: [[0.1, 0.91]], aim: "2-3 working days", tracked: false },
+      { service: "Royal Mail 1st Class", bands: [[0.1, 1.80]], aim: "Next working day aim", tracked: false }
     ],
     "large-letter": [
-      { service: "Royal Mail 2nd Class", price: 1.55, aim: "2-3 working days", tracked: false },
-      { service: "Royal Mail Tracked 48", price: 2.85, aim: "2-3 working days", tracked: true },
-      { service: "Royal Mail 1st Class", price: 3.20, aim: "Next working day aim", tracked: false },
-      { service: "Royal Mail Tracked 24", price: 3.80, aim: "Next working day aim", tracked: true }
+      { service: "Royal Mail 2nd Class", bands: [[0.1, 1.55], [0.25, 1.90], [0.5, 2.40], [0.75, 2.70]], aim: "2-3 working days", tracked: false },
+      { service: "Royal Mail Tracked 48", bands: [[1, 2.90]], aim: "2-3 working days", tracked: true },
+      { service: "Royal Mail 1st Class", bands: [[0.1, 3.20], [0.25, 3.30], [0.5, 3.30], [0.75, 3.30]], aim: "Next working day aim", tracked: false },
+      { service: "Royal Mail Tracked 24", bands: [[1, 3.90]], aim: "Next working day aim", tracked: true }
     ],
     "tracked-large-letter": [
-      { service: "Royal Mail Tracked 48", price: 2.85, aim: "2-3 working days", tracked: true },
-      { service: "Royal Mail Tracked 24", price: 3.80, aim: "Next working day aim", tracked: true }
+      { service: "Royal Mail Tracked 48", bands: [[1, 2.90]], aim: "2-3 working days", tracked: true },
+      { service: "Royal Mail Tracked 24", bands: [[1, 3.90]], aim: "Next working day aim", tracked: true }
     ],
     "small-parcel": [
-      { service: "Royal Mail Tracked 48", price: 3.65, aim: "2-3 working days", tracked: true },
-      { service: "Royal Mail 2nd Class", price: 3.95, aim: "2-3 working days", tracked: false },
-      { service: "Royal Mail Tracked 24", price: 4.65, aim: "Next working day aim", tracked: true },
-      { service: "Royal Mail 1st Class", price: 5.15, aim: "Next working day aim", tracked: false }
+      { service: "Royal Mail Tracked 48", bands: [[2, 3.75]], aim: "2-3 working days", tracked: true },
+      { service: "Royal Mail 2nd Class", bands: [[2, 4.40]], aim: "2-3 working days", tracked: false },
+      { service: "Royal Mail Tracked 24", bands: [[2, 4.80]], aim: "Next working day aim", tracked: true },
+      { service: "Royal Mail 1st Class", bands: [[2, 5.70]], aim: "Next working day aim", tracked: false }
     ],
     "medium-parcel": [
-      { service: "Royal Mail Tracked 48", price: 5.55, aim: "2-3 working days", tracked: true },
-      { service: "Royal Mail 2nd Class", price: 6.25, aim: "2-3 working days", tracked: false },
-      { service: "Royal Mail Tracked 24", price: 6.55, aim: "Next working day aim", tracked: true },
-      { service: "Royal Mail 1st Class", price: 7.35, aim: "Next working day aim", tracked: false }
+      { service: "Royal Mail Tracked 48", bands: [[2, 5.70], [10, 7.55], [20, 12.25]], aim: "2-3 working days", tracked: true },
+      { service: "Royal Mail 2nd Class", bands: [[2, 7.00], [10, 9.00], [20, 13.70]], aim: "2-3 working days", tracked: false },
+      { service: "Royal Mail Tracked 24", bands: [[2, 6.75], [10, 8.80], [20, 14.30]], aim: "Next working day aim", tracked: true },
+      { service: "Royal Mail 1st Class", bands: [[2, 8.20], [10, 10.40], [20, 16.40]], aim: "Next working day aim", tracked: false }
     ]
   };
 
@@ -72,6 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
     return royalMailFormats.find(function (format) {
       return fitsDimensions(dimensions, format.dimensions);
     }) || null;
+  }
+
+  function getRoyalMailOptions(format, weight) {
+    if (!format) return [];
+    return royalMailPrices[format.id].map(function (option) {
+      var band = option.bands.find(function (entry) { return weight <= entry[0]; });
+      return band ? { service: option.service, price: band[1], aim: option.aim, tracked: option.tracked } : null;
+    }).filter(function (option) { return option !== null; }).sort(function (a, b) { return a.price - b.price; });
   }
 
   function getEvriDetails(dimensions, weight) {
@@ -121,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function royalMailOptionMarkup(option) {
     return '<article class="postage-option">' +
-      '<div class="postage-option-heading"><h4>' + option.service + '</h4><strong>From ' + money(option.price) + "</strong></div>" +
+      '<div class="postage-option-heading"><h4>' + option.service + '</h4><strong>' + money(option.price) + "</strong></div>" +
       '<p>' + option.aim + " · " + (option.tracked ? "Tracked to delivery point" : "Not fully tracked") + "</p>" +
     "</article>";
   }
@@ -165,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var royalMailFormat = getRoyalMailFormat(dimensions, weight);
     var dimensionOnlyFormat = getDimensionOnlyFormat(dimensions);
     var evri = getEvriDetails(dimensions, weight);
-    var royalMailOptions = royalMailFormat ? royalMailPrices[royalMailFormat.id] : [];
+    var royalMailOptions = getRoyalMailOptions(royalMailFormat, weight);
     var availablePrices = royalMailOptions.map(function (option) {
       return option.price;
     });
@@ -217,7 +230,8 @@ document.addEventListener("DOMContentLoaded", function () {
         '<div class="result-item"><dt>Evri length + girth</dt><dd>' + evri.lengthAndGirth.toFixed(1) + " / 245 cm</dd></div>" +
       "</dl>" +
       '<div class="result-section postage-section"><h3>Estimated UK postage</h3>' +
-        '<p class="source-note">Public online prices checked ' + priceCheckedDate + ". Royal Mail prices are starting prices effective from 7 April 2026; the final quote can vary by weight, service options, destination, and collection.</p>" +
+        '<p class="source-note">Royal Mail public online prices checked ' + royalMailPriceCheckedDate + '. Rates effective from 5 October 2026, matched to your packed weight. Collection adds 50p per item; signature and other extras are excluded. Tracked prices include VAT; 1st and 2nd Class are VAT-exempt. <a href="https://www.royalmail.com/sites/royalmail.com/files/2026-10/online-price-guide-october-2026-v1.pdf" target="_blank" rel="noopener">Official online price guide</a>.</p>' +
+        '<p class="source-note">Evri estimates last checked ' + evriPriceCheckedDate + '. These older prices may have changed. Confirm all prices and restrictions with the carrier before buying postage.</p>' +
         '<div class="postage-options">' + royalMailMarkup + evriOptionMarkup(evri) + "</div>" +
       "</div>" +
       '<div class="result-section"><h3>Before buying postage</h3><ul>' +

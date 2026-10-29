@@ -23,7 +23,6 @@ function selectMode(next, focus = false) {
   }
   const spot = mode === 'spot';
   document.querySelector('#futures-guide').hidden = spot;
-  document.querySelector('#trade-title').textContent = spot ? 'Crypto Spot Trade Calculator' : 'Crypto Futures Trade Calculator';
   document.querySelector('#trade-intro').textContent = spot ? 'Choose a coin, enter your investment, and see how much you could earn at take profit or lose at your stop loss.' : 'Plan your position, define your risk, and see the potential reward. A USDT perpetual futures calculator for LONG and SHORT trades.';
   const labels = spot ? ['Spot purchases', 'Your investment', 'Gross PnL estimates'] : ['USDT perpetuals', 'Isolated margin', 'Gross PnL estimates'];
   document.querySelectorAll('#market-tags .fee-chip').forEach((el, i) => { el.textContent = labels[i]; });

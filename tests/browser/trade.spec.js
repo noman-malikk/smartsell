@@ -90,7 +90,7 @@ test('320px and desktop layouts fit, labels are present, existing tools still lo
     if (await page.locator('#site-navigation').isVisible()) {
       expect(await page.locator('#site-navigation').evaluate(nav => nav.getBoundingClientRect().right <= innerWidth)).toBe(true);
     }
-    await expect(page.getByRole('heading', { name: 'Crypto Futures Trade Calculator' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Crypto Spot & Futures Trade Calculator' })).toBeVisible();
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await page.screenshot({ path: `test-results/trade-${width}.png`, fullPage: true });
   }

@@ -18,10 +18,37 @@ for (const entry of top) {
   }
 }
 publish.push('assets');
+const origin = `https://${(await readFile(join(root, 'CNAME'), 'utf8')).trim()}`;
+const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
+const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+assert.equal(new Set(sitemapURLs).size, sitemapURLs.length, 'Duplicate sitemap URLs');
+const indexableURLs = [];
+const titles = new Set();
+const descriptions = new Set();
+const robots = await readFile(join(root, 'robots.txt'), 'utf8');
+assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`), 'robots.txt must reference the canonical sitemap');
 // Fail if the checked-in runtime dependency diverges from the pinned package.
 assert.equal(await readFile(join(root, 'assets/js/vendor/decimal.mjs'), 'utf8'), await readFile(join(root, 'node_modules/decimal.js/decimal.mjs'), 'utf8'), 'Vendored decimal.js differs from the installed, pinned dependency.');
 for (const page of pages) {
   const html = await readFile(join(root, page), 'utf8');
+  assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `Expected one main heading in ${page}`);
+  if (page === '404.html') {
+    assert.match(html, /<meta name="robots" content="noindex[^"]*"/, 'The 404 page must stay noindex');
+  } else {
+    const canonical = `${origin}/${page.replace(/index\.html$/, '')}`;
+    indexableURLs.push(canonical);
+    const canonicalTags = [...html.matchAll(/<link rel="canonical" href="([^"]+)"/g)];
+    assert.equal(canonicalTags.length, 1, `Expected one canonical URL in ${page}`);
+    assert.equal(canonicalTags[0][1], canonical, `Incorrect canonical URL in ${page}`);
+    assert.ok(html.includes(`<meta property="og:url" content="${canonical}">`), `Social URL must match canonical in ${page}`);
+    assert.doesNotMatch(html, /<meta[^>]+content="[^"]*(?:noindex|nofollow)[^"]*"/i, `Public page blocks indexing in ${page}`);
+    const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
+    const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    assert.ok(title && description, `Missing search title or description in ${page}`);
+    assert.ok(!titles.has(title) && !descriptions.has(description), `Duplicate search title or description in ${page}`);
+    titles.add(title);
+    descriptions.add(description);
+  }
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(new Set(ids).size, ids.length, `Duplicate HTML ids in ${page}`);
   for (const [, raw] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
@@ -34,6 +61,7 @@ for (const page of pages) {
   }
   for (const [, data] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(data);
 }
+assert.deepEqual(sitemapURLs.toSorted(), indexableURLs.toSorted(), 'Sitemap must contain exactly the indexable canonical pages');
 async function checkScripts(directory) {
   for (const item of await readdir(directory, { withFileTypes: true })) {
     const path = join(directory, item.name);
@@ -45,4 +73,4 @@ await checkScripts(join(root, 'assets/js'));
 await rm(out, { recursive: true, force: true });
 await mkdir(out);
 for (const path of publish) await cp(join(root, path), join(out, path), { recursive: true });
-console.log(`Static production build passed: ${pages.length} pages, local links, metadata JSON and JavaScript syntax verified. Output: dist/`);
+console.log(`Static production build passed: ${pages.length} pages, canonical URLs, sitemap coverage, indexability, local links, metadata JSON and JavaScript syntax verified. Output: dist/`);

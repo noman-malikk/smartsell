@@ -177,7 +177,7 @@
                   <label for="trade-symbol">Trading pair</label>
                   <input id="trade-symbol" name="symbol" value="COMPUSDT" list="trade-symbols" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="28" aria-describedby="symbol-hint error-symbol">
                   <datalist id="trade-symbols"><option value="BTCUSDT"></option><option value="ETHUSDT"></option><option value="COMPUSDT"></option><option value="SOLUSDT"></option></datalist>
-                  <p class="field-hint" id="symbol-hint">Search or type a USDT perpetual pair. All prices are in USDT.</p>
+                  <p class="field-hint" id="symbol-hint">Search or type a USDT perpetual pair. Binance is checked first, then Bitget if the pair is not listed.</p>
                   <p class="trade-field-error" id="error-symbol"></p>
                 </div>
                 <fieldset class="trade-fieldset form-field"><legend>Trade direction</legend><div class="trade-segmented"><label class="trade-long"><input type="radio" name="direction" value="LONG"><span>LONG</span></label><label class="trade-short"><input type="radio" name="direction" value="SHORT" checked><span>SHORT</span></label></div></fieldset>
@@ -288,7 +288,7 @@
           </aside>
         </div>
         <div class="notice section-note"><p><strong>Your coins, your investment.</strong> Quantity = amount invested ÷ entry price. Gross profit or loss = (exit price − entry price) × quantity. Spot mode models a fully paid coin purchase, with no borrowed funds.</p></div>
-        <p class="source-note">Spot prices come from <a href="https://developers.binance.com/en/docs/catalog/core-trading-spot-trading/api/rest-api/market">Binance Spot public market data</a>. Enter a manual price if data is unavailable. Gross results exclude fees and slippage; coin values at TP and SL exclude any unspent balance. Your investment and exit inputs stay in your browser.</p>
+        <p class="source-note">Spot prices come from <a href="https://developers.binance.com/en/docs/catalog/core-trading-spot-trading/api/rest-api/market">Binance Spot public market data</a>, with <a href="https://www.bitget.com/docs/classic/websocket/intro">Bitget Spot</a> used for pairs not listed on Binance Spot. Enter a manual price if data is unavailable. Gross results exclude fees and slippage; coin values at TP and SL exclude any unspent balance. Your investment and exit inputs stay in your browser.</p>
       </div>
     </section>
 
@@ -296,7 +296,7 @@
       <article class="card"><h3>Have a stop in mind?</h3><p>Quantity equals maximum loss divided by the distance to your stop. Your take-profit result follows from that quantity. A different profit objective never moves your chosen stop.</p></article>
       <article class="card"><h3>Leave the stop blank</h3><p>Quantity comes from desired profit divided by the distance to take profit. The calculator then derives a stop from your risk budget. This is money management, not chart analysis.</p></article>
       <article class="card"><h3>Keep margin separate</h3><p>Position value equals quantity × entry price. The calculator finds the lowest integer leverage up to 10x that fits the 80% margin budget. Check account-specific leverage limits on your exchange.</p></article>
-    </div><p class="source-note">Market source: <a href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data">Binance USD-M Futures public market data</a>. Prices are latest traded prices, not guaranteed fills or liquidation marks. Availability varies by network and region. Manual prices remain available. Opening this page sends public market-data requests to Binance; wallet and trade inputs stay in your browser.</p></div></section>
+    </div><p class="source-note">Market source: <a href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data">Binance USD-M Futures public market data</a>, with <a href="https://www.bitget.com/docs/catalog/classic-contract-market/classic-contract-market">Bitget USDT-M Futures</a> used for pairs not listed on Binance Futures. Prices are latest traded prices, not guaranteed fills or liquidation marks. Availability varies by network and region. Manual prices remain available. This page requests public market data from Binance and, when needed, Bitget; wallet and trade inputs stay in your browser.</p></div></section>
 
     <section class="section" aria-labelledby="spot-profit-heading">
       <div class="container split">

@@ -1,9 +1,11 @@
 import { calculateTrade, D, positiveDecimal, SYMBOL_PATTERN, tradeText } from './calculator.js';
 import { createBinanceProvider, createPriceFeed, filtersFor, METADATA_TTL_MS, STALE_AFTER_MS } from './market.js';
 import { renderTrade } from './view.js';
+import { createBitgetProvider } from './bitget-market.js';
+import { resolveMarket } from './market-resolver.js';
 
 /** Reusable controller. Mount on a calculator root; dispose on view removal. */
-export function mountTradeCalculator(root, { provider = createBinanceProvider() } = {}) {
+export function mountTradeCalculator(root, { provider = createBinanceProvider(), fallbackProvider = createBitgetProvider('futures') } = {}) {
   const find = selector => root.querySelector(selector);
   const form = find('#trade-form');
   const field = name => form.elements.namedItem(name);
@@ -11,6 +13,8 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
   const events = new AbortController();
   let disposed = false;
   let metadata = null;
+  let activeProvider = provider;
+  let lookupMessage = '';
   let feed = null;
   let lookupController;
   let debounce;
@@ -61,7 +65,7 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
     find('#market-symbol').textContent = symbol();
     find('#market-price').textContent = latest ? `${latest.price} USDT` : '—';
     find('#market-time').textContent = latest ? `Last successful price update: ${timestamp(latest.timestamp)}` : 'No successful price update yet';
-    find('#market-source').textContent = latest?.source ?? 'Binance USD-M Futures';
+    find('#market-source').textContent = latest?.source ?? activeProvider?.label ?? 'Binance / Bitget Futures';
     const stale = latest && !fresh(latest);
     const status = find('#connection-status');
     status.dataset.state = stale ? 'stale' : connection.state;
@@ -74,7 +78,7 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
   function updateFilters() {
     const current = selectedSymbol();
     const rules = metadata && Date.now() - metadata.fetchedAt < METADATA_TTL_MS ? filtersFor(current, field('orderType').value) : null;
-    find('#filter-info').textContent = rules ? `Binance futures filters: tick ${rules.tickSize}; quantity step ${rules.lots.map(lot => lot.stepSize).join(' / ')}; minimum quantity ${rules.lots.map(lot => lot.minQty).join(' / ')}; minimum notional ${rules.minNotional ?? 'not supplied'} USDT. Loaded ${timestamp(metadata.fetchedAt)}. Account leverage limits unverified.` : 'Exchange filters unavailable or expired. Manual calculations are estimates; verify symbol, price and quantity rules on your exchange.';
+    find('#filter-info').textContent = rules ? `${activeProvider?.label ?? 'Exchange'} filters: tick ${rules.tickSize}; quantity step ${rules.lots.map(lot => lot.stepSize).join(' / ')}; minimum quantity ${rules.lots.map(lot => lot.minQty).join(' / ')}; minimum notional ${rules.minNotional ?? 'not supplied'} USDT. Loaded ${timestamp(metadata.fetchedAt)}. Account leverage limits unverified.` : 'Exchange filters unavailable or expired. Manual calculations are estimates; verify symbol, price and quantity rules on your exchange.';
     return rules;
   }
   function calculate() {
@@ -83,7 +87,7 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
     result = calculateTrade(values, updateFilters());
     if (metadata && !selectedSymbol() && field('priceMode').value === 'live') {
       result.ok = false;
-      result.errors.symbol = 'This symbol is not an active Binance USDT perpetual. Check the pair or choose manual pricing for another exchange.';
+      result.errors.symbol = lookupMessage || 'No active USDT perpetual found on Binance or Bitget. Check the pair or enter a manual price.';
     }
     find('#setup-heading').textContent = `${values.symbol || 'Choose a pair'} ${values.orderType} ${values.direction}`;
     find('#limit-field').hidden = values.orderType !== 'LIMIT';
@@ -127,20 +131,24 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
       return;
     }
     lookupController = new AbortController();
+    activeProvider = provider;
+    lookupMessage = '';
     connection = { state: 'connecting', message: 'Loading futures market data…' };
     updateMarketDisplay();
     try {
-      const data = await provider.getSymbols({ signal: lookupController.signal });
+      const resolved = await resolveMarket(selected, provider, fallbackProvider, { signal: lookupController.signal });
       if (disposed || currentGeneration !== generation) return;
-      metadata = data;
+      metadata = resolved.metadata;
+      activeProvider = resolved.provider;
+      lookupMessage = resolved.message ?? '';
       find('#trade-symbols').replaceChildren(...metadata.symbols.map(s => { const option = document.createElement('option'); option.value = s.symbol; return option; }));
     } catch {
       if (disposed || currentGeneration !== generation) return;
       metadata = null;
     }
     calculate();
-    if (metadata && !selectedSymbol()) {
-      connection = { state: 'offline', message: 'No active Binance perpetual for this symbol.' };
+    if (!activeProvider) {
+      connection = { state: 'offline', message: lookupMessage };
       updateMarketDisplay();
       return;
     }
@@ -153,7 +161,7 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
         else updateMarketDisplay();
       },
       onStatus(status) { if (!disposed && currentGeneration === generation) { connection = status; updateMarketDisplay(); } },
-    }, { provider });
+    }, { provider: activeProvider });
   }
   async function recalculate(event) {
     event.preventDefault();
@@ -189,6 +197,9 @@ export function mountTradeCalculator(root, { provider = createBinanceProvider() 
     find('#copy-fallback').hidden = true;
     if (name === 'symbol') {
       stopMarket();
+      metadata = null;
+      activeProvider = provider;
+      lookupMessage = '';
       latest = null;
       reference = null;
       source = 'manual';

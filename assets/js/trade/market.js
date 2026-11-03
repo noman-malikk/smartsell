@@ -54,6 +54,7 @@ export function createBinanceProvider(fetcher = globalThis.fetch.bind(globalThis
     return response.json();
   }
   return {
+    label: 'Binance USD-M Futures',
     async getSymbols({ signal } = {}) {
       if (metadata && Date.now() - metadata.fetchedAt < METADATA_TTL_MS) return metadata;
       const symbols = parseSymbols(await request('/fapi/v1/exchangeInfo', signal));
@@ -148,25 +149,54 @@ export function createPriceFeed(symbol, { onPrice, onStatus }, options = {}) {
     let current;
     let ended = false;
     let watchdog;
+    let heartbeatTimer;
+    let pongTimeout;
+    const heartbeat = provider.heartbeat;
     const disconnect = () => {
       if (ended || disposed) return;
       ended = true;
       cancel(watchdog);
+      cancel(heartbeatTimer);
+      cancel(pongTimeout);
       current?.close();
       lastSocketPrice = -Infinity;
       status('polling', 'WebSocket disconnected; trying REST prices.');
       if (reconnects < retryDelays.length) later(connect, retryDelays[reconnects++]);
       refresh();
     };
+    const scheduleHeartbeat = () => {
+      heartbeatTimer = later(() => {
+        if (ended) return;
+        try {
+          current.send(heartbeat.ping);
+          pongTimeout = later(disconnect, heartbeat.timeout);
+        } catch { disconnect(); }
+      }, heartbeat.interval);
+    };
     try {
       current = socketFactory(provider.streamUrl(symbol));
       socket = current;
       watchdog = later(disconnect, connectionTimeout);
-      current.onopen = () => { cancel(watchdog); };
+      current.onopen = () => {
+        if (disposed || ended) return;
+        cancel(watchdog);
+        try {
+          if (provider.subscription) current.send(JSON.stringify(provider.subscription(symbol)));
+          if (heartbeat) scheduleHeartbeat();
+        } catch { disconnect(); }
+      };
       current.onmessage = event => {
         if (disposed || ended) return;
+        if (heartbeat && event.data === heartbeat.pong) {
+          cancel(pongTimeout);
+          cancel(heartbeatTimer);
+          scheduleHeartbeat();
+          return;
+        }
         try {
-          const quote = parseStreamQuote(JSON.parse(event.data), symbol, now());
+          const data = JSON.parse(event.data);
+          if (data?.event === 'error') { disconnect(); return; }
+          const quote = parseStreamQuote(data, symbol, now());
           if (!quote) return;
           cancel(watchdog);
           const accepted = emit(quote);

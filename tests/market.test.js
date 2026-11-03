@@ -29,7 +29,7 @@ test('quotes reject wrong symbols, coin-margined data, invalid prices and future
   assert.equal(parseQuote({ s: 'COMPUSDT', p: '21.37', T: now, st: 1 }, 'COMPUSDT', 'WebSocket', now).timestamp, now);
 });
 
-function harness(getPrice) {
+function harness(getPrice, providerOptions = {}) {
   let time = 100000;
   const jobs = new Map();
   let id = 0;
@@ -37,8 +37,8 @@ function harness(getPrice) {
   const prices = [];
   const statuses = [];
   const feed = createPriceFeed('COMPUSDT', { onPrice: q => prices.push(q), onStatus: s => statuses.push(s) }, {
-    provider: { getPrice, streamUrl: s => `wss://example.test/${s}` },
-    socketFactory: () => { const socket = { close() { this.closed = true; } }; sockets.push(socket); return socket; },
+    provider: { getPrice, streamUrl: s => `wss://example.test/${s}`, ...providerOptions },
+    socketFactory: () => { const socket = { sent: [], send(message) { this.sent.push(message); }, close() { this.closed = true; } }; sockets.push(socket); return socket; },
     now: () => time,
     setTimer: (fn, delay) => { jobs.set(++id, { fn, at: time + delay }); return id; },
     clearTimer: n => jobs.delete(n),
@@ -127,4 +127,44 @@ test('provider preserves exchange rate-limit cooldown across feeds, symbols and 
   t.mock.timers.tick(60_001);
   await assert.rejects(provider.getPrice('BTCUSDT'));
   assert.equal(requests, 2);
+});
+
+test('subscription feeds ping, consume pong without emitting prices, and reconnect when heartbeat fails', async () => {
+  const h = harness(async () => null, {
+    subscription: symbol => ({ op: 'subscribe', args: [{ instId: symbol }] }),
+    heartbeat: { interval: 20, timeout: 10, ping: 'ping', pong: 'pong' },
+  });
+  const socket = h.sockets[0];
+  socket.onopen();
+  assert.deepEqual(JSON.parse(socket.sent[0]), { op: 'subscribe', args: [{ instId: 'COMPUSDT' }] });
+  await h.advance(20);
+  assert.equal(socket.sent.at(-1), 'ping');
+  socket.onmessage({ data: 'pong' });
+  await h.advance(20);
+  assert.equal(socket.closed, undefined);
+  assert.equal(h.prices.length, 0);
+  await h.advance(10);
+  assert.equal(socket.closed, true);
+  const count = socket.sent.length;
+  await h.advance(10);
+  h.sockets[1].onopen();
+  assert.equal(h.sockets[1].sent.length, 1);
+  assert.equal(socket.sent.length, count);
+  const lateOpen = h.sockets[1].onopen;
+  h.feed.dispose();
+  lateOpen();
+  await h.advance(100);
+  assert.equal(h.sockets[1].sent.length, 1);
+  assert.equal(h.jobs.size, 0);
+});
+
+test('subscription rejection reconnects without labelling the socket live', async () => {
+  const h = harness(async () => null);
+  h.sockets[0].onopen();
+  h.sockets[0].onmessage({ data: JSON.stringify({ event: 'error', code: '30001' }) });
+  assert.equal(h.sockets[0].closed, true);
+  await h.advance(10);
+  assert.equal(h.sockets.length, 2);
+  assert.equal(h.statuses.some(s => s.state === 'live'), false);
+  h.feed.dispose();
 });

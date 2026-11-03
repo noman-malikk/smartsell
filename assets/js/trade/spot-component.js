@@ -2,14 +2,18 @@ import { D, formatNumber, positiveDecimal, SYMBOL_PATTERN } from './calculator.j
 import { calculateSpot, spotTradeText } from './spot-calculator.js';
 import { createSpotProvider, spotFiltersFor } from './spot-market.js';
 import { createPriceFeed, METADATA_TTL_MS, STALE_AFTER_MS } from './market.js';
+import { createBitgetProvider } from './bitget-market.js';
+import { resolveMarket } from './market-resolver.js';
 
-export function mountSpotCalculator(root, { provider = createSpotProvider() } = {}) {
+export function mountSpotCalculator(root, { provider = createSpotProvider(), fallbackProvider = createBitgetProvider('spot') } = {}) {
   const find = selector => root.querySelector(selector);
   const form = find('#spot-form');
   const field = name => form.elements.namedItem(name);
   const events = new AbortController();
   const touched = new Set();
   let metadata = null;
+  let activeProvider = provider;
+  let lookupMessage = '';
   let feed;
   let lookup;
   let debounce;
@@ -34,7 +38,7 @@ export function mountSpotCalculator(root, { provider = createSpotProvider() } = 
   function status() {
     setText('#spot-market-symbol', symbol());
     setText('#spot-market-price', latest ? `${latest.price} USDT` : '—');
-    setText('#spot-market-source', latest?.source ?? 'Binance Spot');
+    setText('#spot-market-source', latest?.source ?? activeProvider?.label ?? 'Binance / Bitget Spot');
     setText('#spot-market-time', latest ? `Last successful price update: ${date(latest.timestamp)}` : 'No successful price update yet');
     const staleQuote = latest && !fresh(latest);
     const badge = find('#spot-connection');
@@ -99,11 +103,11 @@ export function mountSpotCalculator(root, { provider = createSpotProvider() } = 
   function calculate() {
     if (!active || disposed || locked) return;
     const rules = metadata && Date.now() - metadata.fetchedAt < METADATA_TTL_MS ? spotFiltersFor(selected()) : null;
-    setText('#spot-filter-info', rules ? `Binance Spot filters: price tick ${rules.tickSize}; quantity steps ${rules.lots.map(l => l.stepSize).join(' / ')}. Order minimums use the reference price; verify execution rules on the exchange.` : 'Spot exchange filters unavailable or expired. This is a mathematical estimate; verify order rules on your exchange.');
+    setText('#spot-filter-info', rules ? `${activeProvider?.label ?? 'Exchange'} filters: price tick ${rules.tickSize}; quantity steps ${rules.lots.map(l => l.stepSize).join(' / ')}. Order minimums use the reference price; verify execution rules on the exchange.` : 'Spot exchange filters unavailable or expired. This is a mathematical estimate; verify order rules on your exchange.');
     result = calculateSpot(Object.fromEntries(['entry', 'investment', 'tp', 'sl'].map(name => [name, field(name).value]).concat([['symbol', symbol()]])), rules);
     if (metadata && !selected() && field('priceMode').value === 'live') {
       result.ok = false;
-      result.errors.symbol = 'This pair is not an active Binance Spot USDT pair. Check the symbol or choose a manual price for another exchange.';
+      result.errors.symbol = lookupMessage || 'No active USDT spot pair found on Binance or Bitget. Check the pair or enter a manual price.';
     }
     render();
   }
@@ -128,16 +132,20 @@ export function mountSpotCalculator(root, { provider = createSpotProvider() } = 
     const pair = symbol();
     if (!SYMBOL_PATTERN.test(pair)) { connection = { state: 'offline', message: 'Enter a USDT spot pair.' }; status(); return; }
     lookup = new AbortController();
-    connection = { state: 'connecting', message: 'Loading Binance Spot data…' };
+    activeProvider = provider;
+    lookupMessage = '';
+    connection = { state: 'connecting', message: 'Loading spot market data…' };
     status();
     try {
-      const data = await provider.getSymbols({ signal: lookup.signal });
+      const resolved = await resolveMarket(pair, provider, fallbackProvider, { signal: lookup.signal });
       if (!active || disposed || token !== generation) return;
-      metadata = data;
+      metadata = resolved.metadata;
+      activeProvider = resolved.provider;
+      lookupMessage = resolved.message ?? '';
       find('#spot-symbols').replaceChildren(...metadata.symbols.map(s => { const option = document.createElement('option'); option.value = s.symbol; return option; }));
     } catch { if (!active || disposed || token !== generation) return; metadata = null; }
     calculate();
-    if (metadata && !selected()) { connection = { state: 'offline', message: 'Spot pair unavailable on Binance.' }; status(); return; }
+    if (!activeProvider) { connection = { state: 'offline', message: lookupMessage }; status(); return; }
     feed = createPriceFeed(pair, {
       onPrice(quote) {
         if (!active || disposed || token !== generation) return;
@@ -146,7 +154,7 @@ export function mountSpotCalculator(root, { provider = createSpotProvider() } = 
         else status();
       },
       onStatus(state) { if (active && !disposed && token === generation) { connection = state; status(); } },
-    }, { provider });
+    }, { provider: activeProvider });
   }
   function edit(event) {
     if (!event.target.name || locked || !active) return;
@@ -162,6 +170,9 @@ export function mountSpotCalculator(root, { provider = createSpotProvider() } = 
     }
     if (name === 'symbol') {
       stop(); latest = reference = null;
+      metadata = null;
+      activeProvider = provider;
+      lookupMessage = '';
       for (const key of ['entry', 'tp', 'sl']) field(key).value = '';
       connection = { state: 'connecting', message: 'Waiting for a spot pair…' };
       debounce = setTimeout(start, 500);

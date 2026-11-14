@@ -8,6 +8,7 @@
 - [eBay Title Checker](https://sellsmarttool.co.uk/ebay-title-checker/): Builds title suggestions from verified product facts and checks eBay listing title length, repeated words, keyword stuffing, weak wording, and useful product details.
 - [UK Parcel Size Checker](https://sellsmarttool.co.uk/uk-parcel-size-checker/): Compares packed parcel dimensions and weight with Royal Mail size bands and Evri limits, then shows weight-based Royal Mail online postage for 1st Class, 2nd Class, Tracked 24 and Tracked 48. Royal Mail tariff effective 5 October 2026, checked 29 October 2026; Evri estimates last checked 9 June 2026.
 - [Crypto Spot & Futures Trade Calculator](https://sellsmarttool.co.uk/trade-calculator/): Calculates spot investment returns and coin quantity, or USDT perpetual futures position size, stop loss, take profit, gross PnL, risk:reward, wallet risk and provisional isolated margin. Supports separate live market feeds and manual prices; no orders are placed.
+- [Calculator FAQs](https://sellsmarttool.co.uk/faqs/): Indexes the detailed eBay fee and profit calculator FAQs and the crypto spot and futures trading calculator FAQs.
 
 ## Important facts
 
@@ -24,6 +25,7 @@
 - [About SellSmart Tools UK](https://sellsmarttool.co.uk/about/)
 - [Privacy Policy](https://sellsmarttool.co.uk/privacy-policy/)
 - [Contact](https://sellsmarttool.co.uk/contact/)
+- [Calculator FAQs](https://sellsmarttool.co.uk/faqs/)
 - [XML Sitemap](https://sellsmarttool.co.uk/sitemap.xml)
 
 ## Citation guidance

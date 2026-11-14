@@ -11,6 +11,7 @@ Implemented 29 October 2026 for `https://sellsmarttool.co.uk`. These are source 
 | `/ebay-title-checker/` | eBay title builder, eBay title checker, listing title SEO, 80-character title checker, product keywords, duplicate words |
 | `/uk-parcel-size-checker/` | Royal Mail postage calculator, UK delivery charge checker, parcel size checker, Large Letter dimensions, Small Parcel size, Medium Parcel weight, Tracked 24 and Tracked 48 prices, 1st and 2nd Class postage, Evri size limits |
 | `/trade-calculator/` | Crypto trade calculator, spot profit calculator, futures calculator, position size calculator, simple risk management calculator, stop loss calculator, take profit calculator, risk/reward ratio, isolated margin, leverage, USDT profit and loss |
+| `/faqs/` | SellSmart calculator FAQs, eBay fee calculator questions, eBay profit breakdown, crypto spot calculator questions, futures position size and risk management questions |
 
 These are editorial topic targets, not measured search-volume or ranking claims. They appear naturally in page titles, descriptions, visible explanations and feature lists. No keyword stuffing, hidden keyword text or duplicate doorway pages are used. Google does not use the meta keywords tag.
 
@@ -21,6 +22,7 @@ These are editorial topic targets, not measured search-volume or ranking claims.
 - Tool application schema, breadcrumb schema and FAQ markup matching visible answers. The homepage lists all four tools in an `ItemList`.
 - Static HTML explanations and examples for both spot and futures, accessible without selecting a tab. Both modes share one canonical trade URL.
 - Homepage and About tool cards, contextual links between postage and eBay profit, and related tools from the trading page.
+- A crawlable FAQ hub at `/faqs/`, stable FAQ fragment links on both calculators, and contextual links from the homepage, About page, and related-tool sections. The hub indexes the original FAQ sections rather than duplicating their answers.
 - A canonical sitemap and `robots.txt` sitemap declaration; `llms.txt` now includes trading as well as seller tools. `llms.txt` is an experimental convention, not an indexing guarantee.
 - The production build rejects missing/duplicate canonical pages, sitemap omissions, duplicate titles/descriptions, indexing blocks, missing links and malformed schema JSON.
 

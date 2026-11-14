@@ -4,7 +4,7 @@ SellSmart Tools UK is a lightweight static toolkit for UK eBay sellers, dropship
 
 ## Features
 
-- eBay UK Profit Calculator with estimated profit, margin, fees, break-even price, and target-profit price
+- eBay UK Profit Calculator with itemised fees including fee VAT, estimated profit, margin, ROI, break-even price, and target-profit price
 - eBay Title Builder & Checker with browser-based suggestions, an 80-character target, issue detection, and practical writing guidance
 - UK Parcel Size Checker using packed dimensions and weight
 - Spot & Futures Trade Calculator: spot investment returns plus USDT perpetual risk sizing, optional stops, isolated margin and live/manual prices
@@ -69,6 +69,12 @@ python3 -m http.server 8000
 Then visit `http://localhost:8000`.
 
 The trade calculator uses browser ES modules, so serve it over HTTP rather than opening its HTML with `file://`.
+
+## eBay fee and profit calculator
+
+Route: `/ebay-profit-calculator-uk/`; implementation: `assets/js/profit-calculator.js`. Models one item in one UK domestic business order for a seller who is not VAT registered. Existing category rates, tiers, reduced order fees and the £10 order threshold are retained. Category, order, regulatory and promoted listing fees are rounded to pennies, then 20% VAT is added to their subtotal. Input item, postage, packaging and other costs include any VAT paid and are deducted once. Break-even and target prices use the same fees, including VAT. Margin divides profit by revenue; ROI divides profit by total costs. The displayed £0 HMRC VAT assumes no VAT registration; it is not a VAT-return calculation.
+
+Example with the Clothes, Shoes & Accessories 11.9% rate: £10 sale, £5 item cost and no other costs gives £1.19 final value fee + £0.30 order fee + £0.04 regulatory fee + £0.31 fee VAT = £1.84 fees. Profit is £3.16, margin 31.6%, and ROI on total costs 46.2%. Regression tests are in `tests/browser/profit.spec.js`.
 
 ## Crypto spot & futures trade calculator
 

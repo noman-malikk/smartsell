@@ -34,10 +34,10 @@
         "operatingSystem": "All",
         "browserRequirements": "Requires JavaScript",
         "isAccessibleForFree": true,
-        "dateModified": "2026-10-29",
+        "dateModified": "2026-11-14",
         "featureList": [
-          "Category-based estimated eBay UK seller fees",
-          "Estimated profit and profit margin",
+          "Category-based estimated eBay UK seller fees including 20% fee VAT",
+          "Estimated profit, profit margin and return on total costs",
           "Break-even and target-profit prices",
           "Promoted listing, postage, and packaging cost inputs"
         ],
@@ -86,7 +86,7 @@
             "name": "Does this calculator include promoted listing fees?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Enter a promoted listing percentage and the calculator estimates that fee from total revenue. Use zero if the listing is not promoted."
+              "text": "Yes. Enter a promoted listing percentage and the calculator estimates that fee from total revenue, then includes 20% VAT on marketplace fees. Use zero if the listing is not promoted."
             }
           },
           {
@@ -130,6 +130,7 @@
           <li><a href="../ebay-title-checker/">Title Builder</a></li>
           <li><a href="../uk-parcel-size-checker/">Parcel Size Checker</a></li>
           <li><a href="../trade-calculator/">Trade Calculator</a></li>
+          <li><a href="../faqs/">FAQs</a></li>
           <li><a href="../about/">About</a></li>
         </ul>
       </nav>
@@ -149,9 +150,9 @@
       <div class="container">
         <p class="eyebrow">Free UK seller tool</p>
         <h1>eBay Profit Calculator UK</h1>
-        <p class="lead">Use this free eBay fee and profit calculator for UK business sellers to estimate selling fees, net profit, profit margin, break-even price and the selling price needed for a target profit. Include promoted listings, postage, packaging and your product cost.</p>
+        <p class="lead">Use this free eBay fee and profit calculator for UK business sellers to estimate selling fees including fee VAT, net profit, profit margin, ROI, break-even price and the selling price needed for a target profit. Include promoted listings, postage, packaging and your product cost.</p>
         <div class="notice">
-          <p><strong>This is not an official eBay calculator.</strong> It estimates UK business seller fees using the category you select, the published per-order fee, and the 0.35% regulatory operating fee. Always check your actual eBay transaction fees.</p>
+          <p><strong>This is not an official eBay calculator.</strong> It estimates a UK domestic sale by a business seller who is not VAT registered, including category fees, the per-order fee, the 0.35% regulatory operating fee and 20% VAT on marketplace fees. Always check your actual eBay transaction fees.</p>
         </div>
       </div>
     </section>
@@ -160,7 +161,7 @@
       <div class="container">
         <div class="section-heading">
           <h2 id="calculator-heading">Calculate your estimated profit</h2>
-          <p>Enter the figures for one sale. Results update automatically, and blank fields are treated as zero.</p>
+          <p>Enter the figures for one item in one order. Include any VAT you pay in your costs. Results update automatically, and blank fields are treated as zero.</p>
         </div>
         <div class="tool-layout">
           <form class="tool-form" id="profit-calculator-form">
@@ -232,7 +233,7 @@
                     <option value="memorials">Memorials &amp; Funerals — 11.9%</option>
                   </optgroup>
                 </select>
-                <p class="field-hint">Choose the exact exception when it applies. If an item is listed in two categories, eBay may charge the higher rate.</p>
+                <p class="field-hint">Category rates are before fee VAT; 20% VAT is included in the results. Choose the exact exception when it applies. If an item is listed in two categories, eBay may charge the higher rate.</p>
               </div>
               <div class="form-field">
                 <label for="selling-price">Selling price (£)</label>
@@ -280,7 +281,7 @@
                   <span class="input-prefix" aria-hidden="true">£</span>
                   <input id="other-costs" name="otherCosts" type="number" min="0" step="0.01" inputmode="decimal" value="0">
                 </div>
-                <p class="field-hint">Insertion fees, listing upgrades, or another sale cost.</p>
+                <p class="field-hint">Insertion fees, listing upgrades, or another sale cost, including any VAT you pay.</p>
               </div>
               <div class="form-field">
                 <label for="promoted-percentage">Promoted listing rate (%)</label>
@@ -322,15 +323,17 @@
           <p class="eyebrow">How it works</p>
           <h2 id="how-heading">How the eBay fee and profit calculator works</h2>
           <p>The calculator adds the selling price and buyer postage to get total revenue. It applies the selected category's final value percentage, a £0.30 order fee for orders of £10 or less or £0.40 above £10, and the 0.35% regulatory operating fee.</p>
-          <p>Published tiered rates and selected reduced-order-fee exceptions are included. Promoted listing and entered selling costs are then added before profit, break-even price, and target price are estimated.</p>
-          <p class="source-note">Fee data checked against <a href="https://www.ebay.co.uk/help/selling/fees-credits-invoices/fees-business-sellers-activated-managed-payments?id=4809">eBay UK's business seller fee page</a>, last updated 12 February 2026.</p>
+          <p>Published tiered rates and selected reduced-order-fee exceptions are included. Marketplace fees, including promoted listing fees, are rounded to pennies and 20% fee VAT is added. Your entered costs and the total fees are deducted to calculate profit. Break-even and target prices use the same VAT-inclusive fees. Margin is profit divided by revenue; ROI is profit divided by total costs.</p>
+          <p>For example, with an 11.9% category rate, a £10 sale and £5 item cost, with no postage, promotion or other costs: final value fee £1.19 + order fee £0.30 + regulatory fee £0.04 + fee VAT £0.31 = £1.84 in eBay fees. Total costs are £6.84, leaving £3.16 profit, a 31.6% margin and 46.2% ROI on total costs.</p>
+          <p class="source-note">Checked 8 November 2026 against <a href="https://www.ebay.co.uk/help/selling/fees-credits-invoices/fees-business-sellers-activated-managed-payments?id=4809">eBay UK's business seller fee page</a> (updated 5 November 2026) and the <a href="https://www.gov.uk/vat-rates">UK standard VAT rate</a>. This estimate assumes you are not VAT registered, so no sales VAT is deducted or input VAT reclaimed.</p>
         </div>
         <div class="card">
           <h3>Before you rely on the result</h3>
           <ul class="plain-list">
             <li>Select the exact published subcategory exception when one applies.</li>
             <li>Include packaging, labels, and other per-order costs.</li>
-            <li>Allow separately for taxes, international fees, seller-performance surcharges, discounts, returns, refunds, or overheads when relevant.</li>
+            <li>VAT-registered sellers need a separate calculation for sales VAT and recoverable input VAT.</li>
+            <li>Allow separately for other taxes, international fees, seller-performance surcharges, discounts, returns, refunds, or overheads when relevant.</li>
             <li>Recheck fees whenever marketplace rules change.</li>
           </ul>
         </div>
@@ -365,12 +368,12 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="faq-heading">
+    <section class="section" id="ebay-faq" aria-labelledby="faq-heading">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Common questions</p><h2 id="faq-heading">eBay profit calculator FAQ</h2></div>
+        <div class="section-heading"><p class="eyebrow">Common questions</p><h2 id="faq-heading">eBay profit calculator FAQ</h2><p>Browse these answers here or visit the <a href="../faqs/">SellSmart FAQ hub</a> for the related trading calculator questions.</p></div>
         <div class="faq-list">
           <details><summary>How do I calculate eBay profit in the UK?</summary><p>Add the money received from the sale, then subtract the item cost, postage, packaging, marketplace fees, promotion fees, and other sale-related costs.</p></details>
-          <details><summary>Does this calculator include promoted listing fees?</summary><p>Yes. Enter a promoted listing percentage and the calculator estimates that fee from total revenue. Use zero if the listing is not promoted.</p></details>
+          <details><summary>Does this calculator include promoted listing fees?</summary><p>Yes. Enter a promoted listing percentage and the calculator estimates that fee from total revenue, then includes 20% VAT on marketplace fees. Use zero if the listing is not promoted.</p></details>
           <details><summary>Are the eBay fee results exact?</summary><p>No. The calculator follows the published UK business seller category, order, and regulatory fee structure, but account discounts, performance surcharges, international fees, taxes, listing conditions, and future fee changes can affect the real charge.</p></details>
           <details><summary>What is a good profit margin for eBay sellers?</summary><p>There is no single margin that suits every product. The right target depends on returns, overheads, time, stock risk, and business goals.</p></details>
         </div>
@@ -381,6 +384,8 @@
       <div class="container">
         <div class="section-heading"><h2 id="related-heading">Related seller tools</h2></div>
         <div class="related-links">
+          <a href="../faqs/">Calculator FAQ hub</a>
+          <a href="../trade-calculator/#trade-faq">Trading calculator FAQs</a>
           <a href="../ebay-title-checker/">Build and improve a listing title</a>
           <a href="../uk-parcel-size-checker/">Estimate a parcel category with the UK Parcel Size Checker</a>
           <a href="../about/">Learn more about SellSmart Tools UK</a>

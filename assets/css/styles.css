@@ -1283,6 +1283,83 @@ select {
   margin-top: 0.45rem;
 }
 
+#profit-results .profit-scope {
+  color: var(--colour-muted);
+  font-size: 0.8rem;
+}
+
+#profit-results .profit-primary {
+  grid-column: 1 / -1;
+}
+
+#profit-results .profit-breakdown {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--colour-border);
+}
+
+#profit-results .profit-breakdown h4,
+#profit-results .profit-breakdown summary {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+#profit-results .profit-breakdown summary {
+  cursor: pointer;
+}
+
+#profit-results .profit-fee-list {
+  margin: 0;
+}
+
+#profit-results .profit-fee-list > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  font-size: 0.88rem;
+}
+
+#profit-results .profit-fee-list dt {
+  min-width: 0;
+  color: var(--colour-muted);
+}
+
+#profit-results .profit-fee-list dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  min-width: 4.5rem;
+}
+
+#profit-results .profit-fee-total {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--colour-border);
+  font-weight: 850;
+}
+
+#profit-results .profit-fee-total dt {
+  color: var(--colour-ink);
+}
+
+#profit-results .profit-vat-note {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #9ed4b4;
+  border-radius: 1rem;
+  background: var(--colour-success-bg);
+}
+
+#profit-results .profit-vat-note p {
+  margin: 0.25rem 0;
+  color: var(--colour-muted);
+  font-size: 0.8rem;
+}
+
 .error-message {
   margin: 0;
   padding: 1rem 1.1rem;

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var form = document.querySelector("#profit-calculator-form");
   var results = document.querySelector("#profit-results");
   var regulatoryFeeRate = 0.0035;
+  var feeVatRate = 0.20;
 
   var feeSchedules = {
     "antiques": flatSchedule("Antiques", 10.9),
@@ -172,7 +173,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function roundCurrency(value) {
-    return Math.round((value + Number.EPSILON) * 100) / 100;
+    var rounded = Math.round((value + Number.EPSILON) * 100) / 100;
+    return rounded === 0 ? 0 : rounded;
   }
 
   function formatCurrency(value) {
@@ -201,19 +203,42 @@ document.addEventListener("DOMContentLoaded", function () {
     var orderFee = getOrderFee(totalRevenue, schedule);
     var regulatoryFee = roundCurrency(totalRevenue * regulatoryFeeRate);
     var promotedFee = roundCurrency(totalRevenue * promotedPercentage / 100);
-    var normalEbayFee = roundCurrency(categoryFee + orderFee + regulatoryFee);
+    // Published UK business fees exclude VAT. Round fee lines to pennies first
+    // so the displayed breakdown adds up to the amount deducted from profit.
+    var feesBeforeVat = roundCurrency(categoryFee + orderFee + regulatoryFee + promotedFee);
+    var feeVat = roundCurrency(feesBeforeVat * feeVatRate);
 
     return {
       categoryFee: categoryFee,
       orderFee: orderFee,
       regulatoryFee: regulatoryFee,
       promotedFee: promotedFee,
-      normalEbayFee: normalEbayFee
+      feeVat: feeVat,
+      totalEbayFees: roundCurrency(feesBeforeVat + feeVat)
     };
   }
 
   function findPriceInRange(start, end, targetProfit, profitAtPrice) {
-    if (end < start || profitAtPrice(end) < targetProfit) {
+    if (end < start) {
+      return null;
+    }
+
+    // Fee and VAT lines are rounded independently. Around a penny threshold
+    // that can make profit dip briefly, so binary search is unsafe for the
+    // low-order range (which is at most £10). Check every valid penny there.
+    if (end <= 10) {
+      var firstPenny = Math.max(0, Math.ceil(start * 100 - 1e-8));
+      var lastPenny = Math.floor(end * 100 + 1e-8);
+      for (var penny = firstPenny; penny <= lastPenny; penny += 1) {
+        var pennyPrice = penny / 100;
+        if (profitAtPrice(pennyPrice) >= targetProfit) {
+          return pennyPrice;
+        }
+      }
+      return null;
+    }
+
+    if (profitAtPrice(end) < targetProfit) {
       return null;
     }
 
@@ -250,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function findSellingPrice(targetProfit, values, baseCosts, schedule) {
     var profitAtPrice = function (sellingPrice) {
       var fees = calculateFees(sellingPrice, values.postageCharged, values.promotedPercentage, schedule);
-      return sellingPrice + values.postageCharged - baseCosts - fees.normalEbayFee - fees.promotedFee;
+      return roundCurrency(sellingPrice + values.postageCharged - baseCosts - fees.totalEbayFees);
     };
     var lowOrderBoundary = Math.max(0, 10 - values.postageCharged);
     var candidates = [];
@@ -309,17 +334,18 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if ((schedule.maxRate + values.promotedPercentage + regulatoryFeeRate * 100) >= 100) {
-      showError("The promoted listing percentage is too high when combined with this category's eBay fees.");
+    if ((schedule.maxRate + values.promotedPercentage + regulatoryFeeRate * 100) * (1 + feeVatRate) >= 100) {
+      showError("The promoted listing percentage is too high when combined with this category's eBay fees and 20% fee VAT.");
       return;
     }
 
-    var totalRevenue = values.sellingPrice + values.postageCharged;
+    var totalRevenue = roundCurrency(values.sellingPrice + values.postageCharged);
     var fees = calculateFees(values.sellingPrice, values.postageCharged, values.promotedPercentage, schedule);
-    var baseCosts = values.productCost + values.actualPostage + values.packagingCost + values.otherCosts;
-    var totalCosts = baseCosts + fees.normalEbayFee + fees.promotedFee;
-    var profit = totalRevenue - totalCosts;
+    var baseCosts = roundCurrency(values.productCost + values.actualPostage + values.packagingCost + values.otherCosts);
+    var totalCosts = roundCurrency(baseCosts + fees.totalEbayFees);
+    var profit = roundCurrency(totalRevenue - totalCosts);
     var profitMargin = profit / totalRevenue * 100;
+    var roi = profit / totalCosts * 100;
     var breakEvenPrice = findSellingPrice(0, values, baseCosts, schedule);
     var recommendedPrice = findSellingPrice(values.targetProfit, values, baseCosts, schedule);
 
@@ -342,23 +368,39 @@ document.addEventListener("DOMContentLoaded", function () {
     results.innerHTML =
       '<div class="result-heading"><div><p class="tool-kicker">Live estimate</p><h3>Your sale snapshot</h3></div><span class="fee-chip">' + schedule.rateLabel + "</span></div>" +
       '<div class="selected-category"><span>Fee category</span><strong>' + schedule.name + "</strong></div>" +
+      '<p class="profit-scope">UK business seller · Domestic sale · Not VAT registered</p>' +
       '<div class="result-status ' + statusClass + '">' + statusText + "</div>" +
       '<dl class="result-grid">' +
-        '<div class="result-item result-featured"><dt>Estimated profit</dt><dd>' + formatCurrency(profit) + "</dd></div>" +
+        '<div class="result-item result-featured profit-primary"><dt>Estimated profit</dt><dd>' + formatCurrency(profit) + "</dd></div>" +
         '<div class="result-item result-featured"><dt>Profit margin</dt><dd>' + formatPercentage(profitMargin) + "</dd></div>" +
+        '<div class="result-item"><dt>ROI on total costs</dt><dd>' + formatPercentage(roi) + "</dd></div>" +
         '<div class="result-item"><dt>Total revenue</dt><dd>' + formatCurrency(totalRevenue) + "</dd></div>" +
         '<div class="result-item"><dt>Total costs</dt><dd>' + formatCurrency(totalCosts) + "</dd></div>" +
-        '<div class="result-item result-highlight"><dt>Estimated normal eBay fee</dt><dd>' + formatCurrency(fees.normalEbayFee) + "</dd></div>" +
-        '<div class="result-item"><dt>Category percentage fee</dt><dd>' + formatCurrency(fees.categoryFee) + "</dd></div>" +
-        '<div class="result-item"><dt>Per-order fee</dt><dd>' + formatCurrency(fees.orderFee) + "</dd></div>" +
-        '<div class="result-item"><dt>Regulatory fee (0.35%)</dt><dd>' + formatCurrency(fees.regulatoryFee) + "</dd></div>" +
-        '<div class="result-item"><dt>Promoted listing fee</dt><dd>' + formatCurrency(fees.promotedFee) + "</dd></div>" +
+      "</dl>" +
+      '<section class="profit-breakdown" aria-labelledby="profit-fees-heading"><h4 id="profit-fees-heading">eBay fee breakdown</h4>' +
+      '<dl class="profit-fee-list">' +
+        '<div><dt>Final value fee</dt><dd>' + formatCurrency(fees.categoryFee) + "</dd></div>" +
+        '<div><dt>Per-order fixed fee</dt><dd>' + formatCurrency(fees.orderFee) + "</dd></div>" +
+        '<div><dt>Regulatory operating fee (0.35%)</dt><dd>' + formatCurrency(fees.regulatoryFee) + "</dd></div>" +
+        '<div><dt>Promoted listing fee</dt><dd>' + formatCurrency(fees.promotedFee) + "</dd></div>" +
+        '<div><dt>VAT on marketplace fees (20%)</dt><dd>' + formatCurrency(fees.feeVat) + "</dd></div>" +
+        '<div class="profit-fee-total"><dt>Total eBay fees</dt><dd>' + formatCurrency(fees.totalEbayFees) + "</dd></div>" +
+      '</dl></section>' +
+      '<div class="profit-vat-note"><dl class="profit-fee-list"><div><dt>HMRC VAT due</dt><dd>£0.00</dd></div></dl><p>No sales VAT deducted: this estimate is for a seller who is not VAT registered. VAT on eBay fees is included above.</p></div>' +
+      '<details class="profit-breakdown" open><summary>Cost details &amp; break-even</summary>' +
+      '<dl class="profit-fee-list">' +
+        '<div><dt>Item cost</dt><dd>' + formatCurrency(values.productCost) + "</dd></div>" +
+        '<div><dt>Actual postage</dt><dd>' + formatCurrency(values.actualPostage) + "</dd></div>" +
+        '<div><dt>Packaging</dt><dd>' + formatCurrency(values.packagingCost) + "</dd></div>" +
+        '<div><dt>Other/listing costs</dt><dd>' + formatCurrency(values.otherCosts) + "</dd></div>" +
+      '</dl><dl class="result-grid">' +
         '<div class="result-item"><dt>Break-even selling price</dt><dd>' + formatCurrency(breakEvenPrice) + "</dd></div>" +
         '<div class="result-item"><dt>Price for ' + formatCurrency(values.targetProfit) + ' target profit</dt><dd>' + formatCurrency(recommendedPrice) + "</dd></div>" +
-      "</dl>" +
+      "</dl></details>" +
       '<ul class="result-notes">' +
-        "<li>The normal eBay fee combines the category percentage fee, per-order fee, and regulatory operating fee.</li>" +
-        "<li>Promoted listing fees and your entered product, postage, packaging, listing, and other costs are added separately.</li>" +
+        "<li>Category rates are before VAT. Total eBay fees include the final value fee, fixed order fee, regulatory fee, promotion and 20% fee VAT.</li>" +
+        "<li>Margin is profit divided by revenue. ROI is profit divided by total costs, including fees.</li>" +
+        "<li>Enter item, postage, packaging and other costs including any VAT you pay. These costs are deducted once.</li>" +
         "<li>Fee tables can change and some seller performance, international, tax, discount, or listing conditions are not included.</li>" +
       "</ul>";
   }
